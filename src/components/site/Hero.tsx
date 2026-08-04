@@ -73,7 +73,7 @@ export function Hero() {
             transition={{ delay: 0.15, duration: 0.7, ease: EASE }}
             className="text-[0.95rem] text-ink-soft"
           >
-            Hey, I'm
+            Hey there, I'm
           </motion.p>
 
           <span className="mask-line mt-2 block">
