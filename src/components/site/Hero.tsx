@@ -145,7 +145,7 @@ export function Hero() {
         </motion.div>
 
         {/* ——— portrait column, pulled toward the centre ——— */}
-        <div className="relative order-1 flex justify-center md:order-1 md:mr-[8%] md:justify-end lg:mr-[12%]">
+        <div className="relative order-1 flex justify-center md:order-1 md:mr-[14%] md:justify-end lg:mr-[20%]">
           <motion.span
             aria-hidden
             style={{ x: ghostX }}
