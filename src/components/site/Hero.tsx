@@ -61,7 +61,7 @@ export function Hero() {
       </motion.div>
       <div className="pointer-events-none absolute left-[2%] top-[8%] h-[52vh] w-[52vh] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_oklab,var(--forest)_14%,transparent),transparent_68%)] blur-2xl" />
 
-      <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.25fr_0.75fr] md:gap-2">
+      <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.08fr_0.92fr] md:gap-2">
         {/* ——— type column ——— */}
         <motion.div
           style={{ y: typeY, opacity: typeOpacity }}
