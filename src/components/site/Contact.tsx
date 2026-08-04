@@ -23,7 +23,7 @@ const LINKS = [
 
 export function Contact() {
   return (
-    <section id="contact" className="shell pb-14 pt-24 md:pb-16 md:pt-40">
+    <section id="contact" className="shell pb-14 pt-16 md:pb-16 md:pt-28">
       <FadeUp>
         <div className="mb-10 flex items-center gap-4">
           <span className="h-px w-8 bg-forest/60" />

@@ -1,7 +1,16 @@
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { useRef } from "react";
 
-import portrait from "@/assets/rashaad-portrait.png.asset.json";
+import p1x from "@/assets/portrait-1x.webp.asset.json";
+import p2x from "@/assets/portrait-2x.webp.asset.json";
+import p3x from "@/assets/portrait-3x.webp.asset.json";
 import { HeroVisual } from "./HeroVisual";
 import { SocialActions } from "./SocialActions";
 
@@ -16,31 +25,48 @@ export function Hero() {
   });
 
   const soft = useSpring(scrollYProgress, { stiffness: 120, damping: 26, mass: 0.4 });
-  const portraitY = useTransform(soft, [0, 1], ["0%", "-9%"]);
-  const portraitScale = useTransform(soft, [0, 1], [1, 1.06]);
-  const typeY = useTransform(soft, [0, 1], ["0%", "26%"]);
-  const typeOpacity = useTransform(soft, [0, 0.75], [1, 0]);
-  const ghostX = useTransform(soft, [0, 1], ["0%", "-8%"]);
-  const fieldScale = useTransform(soft, [0, 1], [1, 1.15]);
+  const portraitY = useTransform(soft, [0, 1], ["0%", "-7%"]);
+  const portraitScale = useTransform(soft, [0, 1], [1, 1.045]);
+  const typeY = useTransform(soft, [0, 1], ["0%", "22%"]);
+  const typeOpacity = useTransform(soft, [0, 0.8], [1, 0]);
+  const ghostX = useTransform(soft, [0, 1], ["0%", "-7%"]);
+  const fieldScale = useTransform(soft, [0, 1], [1, 1.12]);
+
+  // pointer depth on the portrait, capped at ~2 degrees
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rx = useSpring(tiltX, { stiffness: 140, damping: 20, mass: 0.5 });
+  const ry = useSpring(tiltY, { stiffness: 140, damping: 20, mass: 0.5 });
 
   return (
     <section
       ref={ref}
       id="top"
-      className="relative min-h-[100svh] overflow-hidden pb-24 pt-28 md:pb-32 md:pt-24"
+      className="relative overflow-hidden pb-16 pt-24 md:pb-20 md:pt-20"
+      onPointerMove={(e) => {
+        if (reduced || e.pointerType !== "mouse") return;
+        tiltY.set(((e.clientX / window.innerWidth) * 2 - 1) * 2);
+        tiltX.set(((e.clientY / window.innerHeight) * 2 - 1) * -1.4);
+      }}
+      onPointerLeave={() => {
+        tiltX.set(0);
+        tiltY.set(0);
+      }}
     >
-      {/* soft abstract field */}
       <motion.div
         style={{ scale: fieldScale }}
-        className="pointer-events-none absolute inset-x-[-10%] top-[-10%] bottom-0 opacity-[0.55]"
+        className="pointer-events-none absolute inset-x-[-10%] top-[-10%] bottom-0 opacity-[0.6]"
       >
         <HeroVisual />
       </motion.div>
-      <div className="pointer-events-none absolute right-[-10%] top-[6%] h-[62vh] w-[62vh] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_oklab,var(--forest)_16%,transparent),transparent_68%)] blur-2xl" />
+      <div className="pointer-events-none absolute right-[2%] top-[8%] h-[52vh] w-[52vh] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_oklab,var(--forest)_14%,transparent),transparent_68%)] blur-2xl" />
 
-      <div className="shell relative grid min-h-[calc(100svh-10rem)] items-center gap-2 md:grid-cols-[1.05fr_0.95fr] md:gap-6">
+      <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.02fr_0.98fr] md:gap-2">
         {/* ——— type column ——— */}
-        <motion.div style={{ y: typeY, opacity: typeOpacity }} className="relative z-20 order-2 md:order-1">
+        <motion.div
+          style={{ y: typeY, opacity: typeOpacity }}
+          className="relative z-20 order-2 md:order-1"
+        >
           <motion.p
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -55,30 +81,32 @@ export function Hero() {
               initial={reduced ? { opacity: 0 } : { y: "110%" }}
               animate={reduced ? { opacity: 1 } : { y: "0%" }}
               transition={{ delay: 0.35, duration: 1.05, ease: EASE }}
-              className="display block text-[clamp(3.1rem,8.4vw,7rem)]"
+              className="display block text-[clamp(3rem,7.8vw,6.4rem)]"
             >
               Rashaad Syed
             </motion.span>
           </span>
 
-          <div className="mt-7 md:mt-9">
+          <div className="mt-6 md:mt-8">
             {[
               <>I build products</>,
               <>
-                where{" "}
+                that put{" "}
                 <span className="font-editorial italic font-normal tracking-[-0.02em] text-forest">
                   AI
                 </span>{" "}
-                meets
+                to work
               </>,
-              <span className="text-ink-faint">real-world problems.</span>,
+              <span key="c" className="text-ink-faint">
+                on real problems.
+              </span>,
             ].map((line, i) => (
               <span key={i} className="mask-line block">
                 <motion.span
                   initial={reduced ? { opacity: 0 } : { y: "110%" }}
                   animate={reduced ? { opacity: 1 } : { y: "0%" }}
                   transition={{ delay: 0.75 + i * 0.08, duration: 0.95, ease: EASE }}
-                  className="block text-[clamp(1.35rem,3vw,2.35rem)] font-normal leading-[1.18] tracking-[-0.035em]"
+                  className="block text-[clamp(1.3rem,2.8vw,2.15rem)] font-normal leading-[1.18] tracking-[-0.035em]"
                 >
                   {line}
                 </motion.span>
@@ -90,7 +118,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.35, duration: 0.9, ease: EASE }}
-            className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.8rem] tracking-[0.16em] uppercase text-ink-faint"
+            className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.78rem] tracking-[0.16em] uppercase text-ink-faint"
           >
             <span>AI Product</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
@@ -103,7 +131,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.5, duration: 0.9, ease: EASE }}
-            className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-5"
+            className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4"
           >
             <SocialActions className="-ml-2.5" />
             <span className="flex items-center gap-2.5 text-[0.8rem] text-ink-soft">
@@ -116,56 +144,60 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ——— portrait column ——— */}
-        <div className="relative order-1 flex justify-center md:order-2 md:justify-end">
-          {/* oversized ghost type sitting behind the cutout */}
+        {/* ——— portrait column, pulled toward the centre ——— */}
+        <div className="relative order-1 flex justify-center md:order-2 md:-ml-[10%] md:justify-start lg:-ml-[14%]">
           <motion.span
             aria-hidden
             style={{ x: ghostX }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.1, duration: 1.4, ease: EASE }}
-            className="display pointer-events-none absolute left-1/2 top-[46%] z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[clamp(5rem,17vw,15rem)] leading-none text-ink/[0.055]"
+            className="display pointer-events-none absolute left-1/2 top-[44%] z-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-[clamp(5rem,16vw,14rem)] leading-none text-ink/[0.06]"
           >
             RS
           </motion.span>
 
           <motion.div
-            style={{ y: portraitY, scale: portraitScale }}
-            initial={reduced ? { opacity: 0 } : { opacity: 0, y: 34, scale: 0.985 }}
+            style={{
+              y: portraitY,
+              scale: portraitScale,
+              rotateX: reduced ? 0 : rx,
+              rotateY: reduced ? 0 : ry,
+              transformPerspective: 1200,
+            }}
+            initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1, duration: 1.25, ease: EASE }}
-            className="relative z-10 w-[min(84vw,30rem)] md:w-[min(38vw,34rem)]"
+            className="relative z-10 w-[min(80vw,28rem)] md:w-[min(42vw,36rem)]"
           >
             <img
-              src={portrait.url}
+              src={p2x.url}
+              srcSet={`${p1x.url} 424w, ${p2x.url} 636w, ${p3x.url} 1272w`}
+              sizes="(max-width: 767px) 80vw, min(42vw, 36rem)"
               alt="Rashaad Syed"
-              width={500}
-              height={500}
+              width={424}
+              height={469}
               fetchPriority="high"
               decoding="async"
               style={{
-                maskImage:
-                  "linear-gradient(to bottom, #000 68%, rgba(0,0,0,0.55) 88%, transparent 100%)",
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, #000 68%, rgba(0,0,0,0.55) 88%, transparent 100%)",
+                maskImage: "linear-gradient(to bottom, #000 94%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, #000 94%, transparent 100%)",
               }}
-              className="h-auto w-full select-none object-contain"
+              className="h-auto w-full select-none object-contain [image-rendering:auto]"
             />
           </motion.div>
         </div>
       </div>
 
-      {/* no hard boundary — the hero dissolves downward */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.9, duration: 1 }}
-        className="shell relative z-10 mt-4 flex items-center justify-between text-[0.7rem] tracking-[0.2em] uppercase text-ink-faint"
+        className="shell relative z-10 mt-2 flex items-center justify-between text-[0.7rem] tracking-[0.2em] uppercase text-ink-faint"
       >
         <span>Scroll</span>
         <span className="h-px flex-1 mx-6 bg-hairline" />
-        <span>Product × AI × Technology</span>
+        <span>Product, AI, Technology</span>
       </motion.div>
     </section>
   );

@@ -21,11 +21,11 @@ export type Brand = {
   hex: string;
   /** Rendered as a wordmark when no legitimate logo asset exists. */
   wordmark?: string;
-  /** Logo already contains the name — skip the text label. */
+  /** Logo already contains the name, so skip the text label. */
   iconOnly?: boolean;
 };
 
-/** Technologies actually used in Rashaad's work — no filler. */
+/** Technologies actually used in Rashaad's work. */
 export const TECH_ROW_ONE: Brand[] = [
   { name: "Python", path: siPython.path, hex: siPython.hex },
   { name: "PyTorch", path: siPytorch.path, hex: siPytorch.hex },
@@ -43,21 +43,30 @@ export const TECH_ROW_TWO: Brand[] = [
   { name: "Google Cloud", path: siGooglecloud.path, hex: siGooglecloud.hex },
   { name: "Docker", path: siDocker.path, hex: siDocker.hex },
   { name: "SQL", path: siPostgresql.path, hex: siPostgresql.hex },
-  { name: "Power BI", wordmark: "Power BI", hex: "C9A227" },
+  { name: "Power BI", wordmark: "Power BI", hex: "E8B008" },
   { name: "Figma", path: siFigma.path, hex: siFigma.hex },
 ];
 
-/** Employers — typographic marks, since no licensed logo assets are available. */
+export const ALL_TECH: Brand[] = [...TECH_ROW_ONE, ...TECH_ROW_TWO];
+
+export const TECH_BY_NAME: Record<string, Brand> = Object.fromEntries(
+  ALL_TECH.map((b) => [b.name, b]),
+);
+
+/** Employers. Typographic marks, since no licensed logo assets are available. */
 export const COMPANY_BRAND: Record<string, { hex: string; mark: string }> = {
   nexus: { hex: "1C7C6B", mark: "Nexus" },
-  harrods: { hex: "6E5B2E", mark: "HARRODS" },
+  harrods: { hex: "7A6320", mark: "HARRODS" },
   perficient: { hex: "C8102E", mark: "Perficient" },
   "code-facts": { hex: "3D6BB3", mark: "Code Facts" },
   vit: { hex: "1E3A8A", mark: "VIT" },
 };
 
 /** Perficient client contexts. Core GenAI is a platform, not a company. */
-export const CLIENT_BRAND: Record<string, { hex: string; mark: string; kind: "client" | "platform" }> = {
+export const CLIENT_BRAND: Record<
+  string,
+  { hex: string; mark: string; kind: "client" | "platform" }
+> = {
   caterpillar: { hex: "B9891A", mark: "CATERPILLAR", kind: "client" },
   aristocrat: { hex: "8A2F4A", mark: "Aristocrat", kind: "client" },
   northshore: { hex: "2F6DA8", mark: "NorthShore Care", kind: "client" },

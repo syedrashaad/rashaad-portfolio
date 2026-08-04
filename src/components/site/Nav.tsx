@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -15,10 +15,19 @@ const LINKS = [
 export function Nav() {
   const { scrollY } = useScroll();
   const [condensed, setCondensed] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string | null>(null);
+  const last = useRef(0);
 
-  useMotionValueEvent(scrollY, "change", (v) => setCondensed(v > 80));
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setCondensed(v > 80);
+    const delta = v - last.current;
+    if (Math.abs(delta) > 6) {
+      setHidden(delta > 0 && v > 240);
+      last.current = v;
+    }
+  });
 
   useEffect(() => {
     const sections = LINKS.map((l) => document.getElementById(l.id)).filter(
@@ -47,10 +56,12 @@ export function Nav() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
       <motion.div
+        animate={{ y: hidden && !open ? "-140%" : "0%" }}
+        transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           "pointer-events-auto mx-auto flex items-center justify-between gap-4 transition-all duration-700",
           condensed
-            ? "mt-3 w-[calc(100%-1.5rem)] max-w-3xl rounded-full border border-hairline/70 bg-paper/70 px-4 py-2 backdrop-blur-xl md:px-5"
+            ? "mt-3 w-[calc(100%-1.5rem)] max-w-2xl rounded-full border border-hairline/70 bg-paper/70 px-4 py-1.5 backdrop-blur-xl md:px-5"
             : "mt-0 w-full max-w-none rounded-none border border-transparent bg-transparent px-6 py-6 md:px-12",
         )}
       >
@@ -60,30 +71,31 @@ export function Nav() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-1 md:flex">
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
               className={cn(
-                "relative text-[0.8rem] tracking-[-0.01em] transition-colors duration-500",
+                "relative rounded-full px-3 py-1.5 text-[0.8rem] tracking-[-0.01em] transition-colors duration-500",
                 active === l.id ? "text-ink" : "text-ink-faint hover:text-ink",
               )}
             >
+              {active === l.id ? (
+                <motion.span
+                  layoutId="nav-active"
+                  transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                  className="absolute inset-0 -z-10 rounded-full bg-forest/10"
+                />
+              ) : null}
               {l.label}
-              <span
-                className={cn(
-                  "absolute -bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-forest transition-all duration-500",
-                  active === l.id ? "scale-100 opacity-100" : "scale-0 opacity-0",
-                )}
-              />
             </a>
           ))}
           <Magnetic strength={0.25}>
             <a
               href="/rashaad-syed-cv.pdf"
               download=""
-              className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-1.5 text-[0.75rem] text-paper transition-colors hover:bg-forest"
+              className="ml-3 inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-1.5 text-[0.75rem] text-paper transition-colors hover:bg-forest"
             >
               CV <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} />
             </a>
