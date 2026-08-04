@@ -61,7 +61,7 @@ export function Hero() {
       </motion.div>
       <div className="pointer-events-none absolute left-[2%] top-[8%] h-[52vh] w-[52vh] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_oklab,var(--forest)_14%,transparent),transparent_68%)] blur-2xl" />
 
-      <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-8 md:grid-cols-[1.15fr_0.85fr] md:gap-12">
+      <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.05fr_0.95fr] md:gap-6">
         {/* ——— type column ——— */}
         <motion.div
           style={{ y: typeY, opacity: typeOpacity }}
@@ -145,7 +145,7 @@ export function Hero() {
         </motion.div>
 
         {/* ——— portrait column ——— */}
-        <div className="relative order-1 flex justify-center md:order-1 md:justify-start lg:-ml-[6%]">
+        <div className="relative order-1 flex justify-center md:order-1 md:justify-start md:pl-[8%] lg:pl-[12%]">
           <motion.span
             aria-hidden
             style={{ x: ghostX }}
@@ -169,7 +169,7 @@ export function Hero() {
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1, duration: 1.25, ease: EASE }}
-            className="relative z-10 w-[min(80vw,26rem)] md:w-[min(36vw,30rem)]"
+            className="relative z-10 w-[min(80vw,28rem)] md:w-[min(40vw,34rem)]"
           >
             <img
               src={p2x.url}
