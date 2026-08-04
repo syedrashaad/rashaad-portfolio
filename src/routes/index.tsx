@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { About } from "@/components/site/About";
+import { CaseStudyProvider } from "@/components/site/CaseStudy";
 import { Contact } from "@/components/site/Contact";
 import { Education } from "@/components/site/Education";
 import { ExperienceSection } from "@/components/site/ExperienceSection";
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <>
+    <CaseStudyProvider>
       <SmoothScroll />
       <ScrollProgress />
       <Nav />
@@ -51,6 +52,6 @@ function Index() {
         <Education />
         <Contact />
       </main>
-    </>
+    </CaseStudyProvider>
   );
 }
