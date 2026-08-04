@@ -169,7 +169,7 @@ export function Hero() {
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1, duration: 1.25, ease: EASE }}
-            className="relative z-10 w-[min(80vw,26rem)] md:w-[min(36vw,30rem)]"
+            className="relative z-10 w-[min(80vw,28rem)] md:w-[min(40vw,34rem)]"
           >
             <img
               src={p2x.url}
