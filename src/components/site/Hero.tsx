@@ -160,6 +160,7 @@ export function Hero() {
           <motion.div
             style={{
               y: portraitY,
+              x: "12%",
               scale: portraitScale,
               rotateX: reduced ? 0 : rx,
               rotateY: reduced ? 0 : ry,
@@ -168,7 +169,7 @@ export function Hero() {
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1, duration: 1.25, ease: EASE }}
-            className="relative z-10 w-[min(80vw,28rem)] md:w-[min(42vw,36rem)] md:translate-x-[12%] lg:translate-x-[18%]"
+            className="relative z-10 w-[min(80vw,28rem)] md:w-[min(42vw,36rem)]"
           >
             <img
               src={p2x.url}
