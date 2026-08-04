@@ -46,7 +46,7 @@ export function Philosophy() {
   });
 
   return (
-    <section ref={ref} className="relative bg-paper-deep/50 py-32 md:py-48">
+    <section ref={ref} className="relative py-32 md:py-48">
       <div className="shell flex min-h-[70svh] items-center">
         <h2 className="display flex max-w-5xl flex-wrap text-[clamp(2.2rem,7vw,5.6rem)] leading-[1.02]">
           {WORDS.map((w, i) => (

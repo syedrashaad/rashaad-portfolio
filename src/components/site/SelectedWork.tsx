@@ -10,15 +10,15 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
     target: ref,
     offset: ["start start", "end start"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.94]);
-  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.35]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.965]);
+  const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 0.18]);
   const align = i % 2 === 0;
 
   return (
     <div ref={ref} className="sticky top-0 h-[100svh] pt-16">
       <motion.div
         style={{ scale, opacity }}
-        className="flex h-full flex-col justify-center overflow-hidden rounded-t-2xl border-t border-hairline bg-paper shadow-[0_-24px_60px_-40px_rgba(20,20,18,0.35)]"
+        className="flex h-full flex-col justify-center bg-paper"
       >
         <div className="shell grid w-full gap-10 py-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           <div className={align ? "" : "lg:order-2"}>
@@ -93,9 +93,9 @@ export function SelectedWork() {
     <section id="work" className="relative">
       <div className="shell py-24 md:py-36">
         <SectionHeading
-          eyebrow="03 — Selected Work"
-          title="Selected Work"
-          sub="Four projects, four different distances between an idea and something people actually use."
+          eyebrow="Selected work"
+          title="Four things I built."
+          sub="Four different distances between an idea and something people actually use."
         />
       </div>
       <div className="relative">
