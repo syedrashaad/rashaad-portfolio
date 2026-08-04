@@ -3,7 +3,7 @@ import { EDUCATION } from "@/lib/portfolio-data";
 
 export function Education() {
   return (
-    <section className="shell pb-20 pt-24 md:pb-24 md:pt-36">
+    <section className="shell pb-14 pt-16 md:pb-16 md:pt-24">
       <FadeUp>
         <div className="mb-14 flex items-center gap-4">
           <span className="h-px w-8 bg-ink-faint/60" />
