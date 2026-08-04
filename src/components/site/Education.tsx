@@ -3,11 +3,11 @@ import { EDUCATION } from "@/lib/portfolio-data";
 
 export function Education() {
   return (
-    <section className="shell py-28 md:py-40">
+    <section className="shell pb-20 pt-24 md:pb-24 md:pt-36">
       <FadeUp>
         <div className="mb-14 flex items-center gap-4">
           <span className="h-px w-8 bg-ink-faint/60" />
-          <span className="eyebrow">05 — Education</span>
+          <span className="eyebrow">Education</span>
         </div>
       </FadeUp>
 

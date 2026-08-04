@@ -1,23 +1,41 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
 
 import { Magnetic } from "./Magnetic";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Work", href: "#work" },
-  { label: "Stack", href: "#stack" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "#about", id: "about" },
+  { label: "Experience", href: "#experience", id: "experience" },
+  { label: "Work", href: "#work", id: "work" },
+  { label: "Contact", href: "#contact", id: "contact" },
 ];
 
 export function Nav() {
   const { scrollY } = useScroll();
   const [condensed, setCondensed] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
 
   useMotionValueEvent(scrollY, "change", (v) => setCondensed(v > 80));
+
+  useEffect(() => {
+    const sections = LINKS.map((l) => document.getElementById(l.id)).filter(
+      (el): el is HTMLElement => !!el,
+    );
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.2, 0.6] },
+    );
+    sections.forEach((s) => io.observe(s));
+    return () => io.disconnect();
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -30,40 +48,44 @@ export function Nav() {
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
       <motion.div
         className={cn(
-          "pointer-events-auto mx-auto flex items-center justify-between gap-4 transition-all duration-500",
+          "pointer-events-auto mx-auto flex items-center justify-between gap-4 transition-all duration-700",
           condensed
-            ? "mt-3 w-[calc(100%-1.5rem)] max-w-4xl rounded-full border border-hairline/80 bg-paper/80 px-4 py-2.5 backdrop-blur-xl md:px-6"
+            ? "mt-3 w-[calc(100%-1.5rem)] max-w-3xl rounded-full border border-hairline/70 bg-paper/70 px-4 py-2 backdrop-blur-xl md:px-5"
             : "mt-0 w-full max-w-none rounded-none border border-transparent bg-transparent px-6 py-6 md:px-12",
         )}
       >
-        <a
-          href="#top"
-          className="flex min-w-0 items-baseline gap-2 font-medium tracking-[-0.03em]"
-        >
+        <a href="#top" className="font-medium tracking-[-0.03em]">
           <span className={cn("transition-all duration-500", condensed ? "text-sm" : "text-base")}>
-            Rashaad Syed
-          </span>
-          <span className="hidden text-[0.65rem] tracking-[0.2em] text-ink-faint sm:inline">
-            RS.
+            {condensed ? "RS." : "Rashaad Syed"}
           </span>
         </a>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-6 md:flex">
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="link-underline text-[0.8rem] tracking-[-0.01em] text-ink-soft transition-colors hover:text-ink"
+              className={cn(
+                "relative text-[0.8rem] tracking-[-0.01em] transition-colors duration-500",
+                active === l.id ? "text-ink" : "text-ink-faint hover:text-ink",
+              )}
             >
               {l.label}
+              <span
+                className={cn(
+                  "absolute -bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-forest transition-all duration-500",
+                  active === l.id ? "scale-100 opacity-100" : "scale-0 opacity-0",
+                )}
+              />
             </a>
           ))}
           <Magnetic strength={0.25}>
             <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[0.75rem] tracking-[-0.01em] text-paper transition-colors hover:bg-forest"
+              href="/rashaad-syed-cv.pdf"
+              download=""
+              className="inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-1.5 text-[0.75rem] text-paper transition-colors hover:bg-forest"
             >
-              CV <span aria-hidden>↗</span>
+              CV <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} />
             </a>
           </Magnetic>
         </nav>
@@ -95,7 +117,7 @@ export function Nav() {
           animate={{ opacity: 1 }}
           className="pointer-events-auto fixed inset-0 z-40 flex flex-col justify-center gap-2 bg-paper px-6"
         >
-          {[...LINKS, { label: "CV ↗", href: "#contact" }].map((l, i) => (
+          {LINKS.map((l, i) => (
             <motion.a
               key={l.label}
               href={l.href}

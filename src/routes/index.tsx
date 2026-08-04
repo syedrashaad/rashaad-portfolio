@@ -13,9 +13,9 @@ import { SelectedWork } from "@/components/site/SelectedWork";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Technology } from "@/components/site/Technology";
 
-const TITLE = "Rashaad Syed — Product × AI × Technology";
+const TITLE = "Rashaad Syed — AI Product, Product & Technology";
 const DESCRIPTION =
-  "Product builder with a technical foundation in AI, machine learning and software engineering. Product strategy, intelligent systems and real-world delivery. London, UK.";
+  "Rashaad Syed builds products where AI meets real-world problems — product strategy, intelligent systems and enterprise delivery. London, UK.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,8 +47,8 @@ function Index() {
         <PerficientShowcase />
         <SelectedWork />
         <Technology />
-        <Education />
         <Philosophy />
+        <Education />
         <Contact />
       </main>
     </>

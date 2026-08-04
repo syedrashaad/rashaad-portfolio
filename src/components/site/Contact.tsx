@@ -1,75 +1,80 @@
-import { Magnetic } from "./Magnetic";
+import { ArrowUpRight, Linkedin, Mail } from "lucide-react";
+
 import { FadeUp, MaskedLines } from "./Reveal";
+import { SocialActions } from "./SocialActions";
+import { CONTACT } from "@/lib/brand";
 
 const LINKS = [
-  { label: "Email", value: "hello@rashaadsyed.com", href: "mailto:hello@rashaadsyed.com" },
-  { label: "LinkedIn", value: "in/rashaadsyed", href: "https://www.linkedin.com/" },
-  { label: "CV", value: "Download ↗", href: "#" },
+  {
+    label: "Email",
+    value: CONTACT.email,
+    href: `mailto:${CONTACT.email}`,
+    icon: Mail,
+    hex: "var(--forest)",
+  },
+  {
+    label: "LinkedIn",
+    value: "in/syed-rashaad",
+    href: CONTACT.linkedin,
+    icon: Linkedin,
+    hex: "#0A66C2",
+  },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="shell pb-14 pt-28 md:pb-16 md:pt-44">
+    <section id="contact" className="shell pb-14 pt-24 md:pb-16 md:pt-40">
       <FadeUp>
         <div className="mb-10 flex items-center gap-4">
           <span className="h-px w-8 bg-forest/60" />
-          <span className="eyebrow text-forest">06 — Contact</span>
+          <span className="eyebrow text-forest">Contact</span>
         </div>
       </FadeUp>
 
       <MaskedLines
-        className="display text-[clamp(2.5rem,8.5vw,7rem)]"
+        className="display text-[clamp(2.4rem,8vw,6.6rem)]"
         lines={[
           <span key="1">Let's build something</span>,
           <span key="2">
-            worth{" "}
-            <span className="font-editorial italic font-normal text-forest">using.</span>
+            worth <span className="font-editorial italic font-normal text-forest">using.</span>
           </span>,
         ]}
       />
 
-      <div className="mt-20 grid gap-0 border-t border-hairline md:mt-28">
+      <div className="mt-16 grid gap-0 md:mt-24">
         {LINKS.map((l, i) => (
           <FadeUp key={l.label} delay={i * 0.06}>
             <a
               href={l.href}
               target={l.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-hairline py-6 transition-colors duration-500 hover:border-forest/40"
+              style={{ ["--brand" as string]: l.hex }}
+              className="group flex items-center justify-between gap-6 border-b border-hairline py-6 transition-colors duration-500 hover:border-[var(--brand)]/40"
             >
-              <span className="flex min-w-0 items-baseline gap-6">
-                <span className="eyebrow w-20 shrink-0">{l.label}</span>
-                <span className="truncate text-[clamp(1.1rem,3vw,1.9rem)] tracking-[-0.03em] transition-colors duration-500 group-hover:text-forest">
+              <span className="flex min-w-0 items-center gap-5">
+                <l.icon
+                  className="h-[1.15rem] w-[1.15rem] shrink-0 text-ink-faint transition-all duration-500 group-hover:-translate-y-0.5 group-hover:text-[var(--brand)]"
+                  strokeWidth={1.6}
+                />
+                <span className="truncate text-[clamp(1rem,2.4vw,1.6rem)] tracking-[-0.02em]">
                   {l.value}
                 </span>
               </span>
-              <span className="shrink-0 text-ink-faint transition-transform duration-500 group-hover:translate-x-1 group-hover:text-forest">
-                ↗
-              </span>
+              <ArrowUpRight
+                className="h-5 w-5 shrink-0 text-ink-faint transition-all duration-500 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[var(--brand)]"
+                strokeWidth={1.4}
+              />
             </a>
           </FadeUp>
         ))}
       </div>
 
-      <div className="mt-16 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-6 md:mt-24">
-        <div>
-          <div className="eyebrow mb-3">Based in</div>
-          <Magnetic strength={0.2}>
-            <span className="display text-[clamp(1.6rem,4vw,2.6rem)]">London, UK</span>
-          </Magnetic>
-        </div>
-        <a
-          href="#top"
-          className="link-underline text-[0.8rem] text-ink-soft transition-colors hover:text-ink"
-        >
-          Back to top ↑
-        </a>
+      <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
+        <SocialActions className="-ml-2.5" />
+        <span className="text-[0.72rem] tracking-[0.2em] uppercase text-ink-faint">
+          Rashaad Syed — London, UK
+        </span>
       </div>
-
-      <footer className="mt-20 flex flex-wrap items-center justify-between gap-3 border-t border-hairline pt-6 text-[0.75rem] text-ink-faint">
-        <span>Rashaad Syed © 2026</span>
-        <span className="eyebrow">Product × AI × Technology</span>
-      </footer>
     </section>
   );
 }

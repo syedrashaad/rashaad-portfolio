@@ -48,13 +48,13 @@ function EmphasisWord({
 
 export function About() {
   return (
-    <section id="about" className="shell relative py-28 md:py-44">
+    <section id="about" className="shell relative pb-20 pt-24 md:pb-28 md:pt-40">
       <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <FadeUp>
             <div className="mb-8 flex items-center gap-4">
               <span className="h-px w-8 bg-ink-faint/60" />
-              <span className="eyebrow">01 — About</span>
+              <span className="eyebrow">About</span>
             </div>
           </FadeUp>
           <MaskedLines
