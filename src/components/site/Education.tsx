@@ -18,7 +18,9 @@ export function Education() {
               <h3 className="display text-[clamp(1.7rem,4.6vw,3.4rem)] transition-colors duration-500 group-hover:text-forest">
                 {e.school}
               </h3>
-              <p className="text-[0.95rem] text-ink-soft">{e.degree}</p>
+              <p className="whitespace-pre-line text-[0.95rem] text-ink-soft">
+                {e.degree}
+              </p>
               <div className="flex items-center gap-4 text-[0.8rem] tabular-nums text-ink-faint">
                 <span>{e.period}</span>
                 <span className="h-3 w-px bg-hairline" />

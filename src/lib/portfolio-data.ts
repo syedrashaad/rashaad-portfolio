@@ -369,8 +369,8 @@ export const EDUCATION = [
     location: "London",
   },
   {
-    school: "VIT",
-    degree: "B.Tech Computer Science & Engineering",
+    school: "VIT University",
+    degree: "B.Tech Computer Science & Engineering\u00a0\nSpec. in Networks & Security",
     period: "2019 — 2023",
     location: "India",
   },

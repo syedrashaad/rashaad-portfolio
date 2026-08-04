@@ -59,7 +59,7 @@ export const COMPANY_BRAND: Record<string, { hex: string; mark: string }> = {
   harrods: { hex: "7A6320", mark: "HARRODS" },
   perficient: { hex: "C8102E", mark: "Perficient" },
   "code-facts": { hex: "3D6BB3", mark: "Code Facts" },
-  vit: { hex: "1E3A8A", mark: "VIT" },
+  vit: { hex: "1E3A8A", mark: "VIT University\u00a0" },
 };
 
 /** Perficient client contexts. Core GenAI is a platform, not a company. */
