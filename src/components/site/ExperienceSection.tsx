@@ -35,17 +35,18 @@ function Item({ item, index }: { item: (typeof EXPERIENCES)[number]; index: numb
           <span className="text-[0.72rem] tabular-nums text-ink-faint">{item.period}</span>
         </div>
 
-        {brand ? (
-          <div className="mt-4 text-[clamp(1.05rem,2vw,1.45rem)]">
+        <h3 className="mt-4 text-[clamp(1.7rem,3.6vw,2.6rem)]">
+          {brand ? (
             <CompanyMark
               mark={brand.mark}
               hex={brand.hex}
-              tracking={brand.mark === brand.mark.toUpperCase() ? "0.18em" : "0.01em"}
+              className="!text-ink"
+              tracking={brand.mark === brand.mark.toUpperCase() ? "0.14em" : "-0.03em"}
             />
-          </div>
-        ) : null}
-
-        <h3 className="display mt-2 text-[clamp(1.7rem,3.6vw,2.6rem)]">{item.company}</h3>
+          ) : (
+            item.company
+          )}
+        </h3>
 
         <p className="mt-3 text-[0.85rem] text-ink-soft">
           {item.role} <span className="text-ink-faint">· {item.location}</span>
