@@ -1,7 +1,8 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
-import { FadeUp, MaskedLines, SectionHeading } from "./Reveal";
+import { ViewWork } from "./CaseStudy";
+import { FadeUp, MaskedLines } from "./Reveal";
 import { WORKS, type Work } from "@/lib/portfolio-data";
 
 function WorkPanel({ work, i, total }: { work: Work; i: number; total: number }) {
@@ -15,12 +16,9 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
   const align = i % 2 === 0;
 
   return (
-    <div ref={ref} className="sticky top-0 h-[100svh] pt-16">
-      <motion.div
-        style={{ scale, opacity }}
-        className="flex h-full flex-col justify-center bg-paper"
-      >
-        <div className="shell grid w-full gap-10 py-10 lg:grid-cols-2 lg:items-center lg:gap-20">
+    <div ref={ref} className="sticky top-0 h-[92svh] pt-14">
+      <motion.div style={{ scale, opacity }} className="flex h-full flex-col justify-center bg-paper">
+        <div className="shell grid w-full gap-8 py-6 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div className={align ? "" : "lg:order-2"}>
             <div className="flex items-center gap-4">
               <motion.span
@@ -28,7 +26,7 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7 }}
-                className="display text-[clamp(2.4rem,6vw,4.5rem)] leading-none text-hairline"
+                className="display text-[clamp(2rem,5vw,3.6rem)] leading-none text-hairline"
               >
                 {work.index}
               </motion.span>
@@ -36,22 +34,22 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
             </div>
 
             <MaskedLines
-              className="mt-5 display text-[clamp(2.6rem,7vw,6rem)]"
+              className="mt-4 display text-[clamp(2.3rem,6vw,5rem)]"
               lines={[work.title]}
             />
 
             <FadeUp delay={0.08}>
-              <p className="mt-6 max-w-md text-[1.05rem] leading-relaxed text-ink-soft">
+              <p className="mt-5 max-w-md text-[1.02rem] leading-relaxed text-ink-soft">
                 {work.lede}
               </p>
             </FadeUp>
 
             {work.metrics ? (
-              <FadeUp delay={0.14}>
-                <div className="mt-9 flex flex-wrap gap-x-12 gap-y-6">
+              <FadeUp delay={0.12}>
+                <div className="mt-7 flex flex-wrap gap-x-10 gap-y-5">
                   {work.metrics.map((m) => (
                     <div key={m.label}>
-                      <div className="display text-[clamp(1.9rem,4vw,3.2rem)] text-forest">
+                      <div className="display text-[clamp(1.7rem,3.6vw,2.8rem)] text-forest">
                         {m.value}
                       </div>
                       <div className="eyebrow mt-1">{m.label}</div>
@@ -60,6 +58,10 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
                 </div>
               </FadeUp>
             ) : null}
+
+            <FadeUp delay={0.16}>
+              <ViewWork id={work.id} className="mt-7" />
+            </FadeUp>
           </div>
 
           <div className={align ? "" : "lg:order-1"}>
@@ -68,7 +70,7 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
                 {work.points.map((p, idx) => (
                   <li
                     key={p}
-                    className="group flex items-baseline gap-5 border-b border-hairline py-4 text-[0.92rem] text-ink-soft transition-colors duration-500 hover:text-ink"
+                    className="group flex items-baseline gap-5 border-b border-hairline py-3.5 text-[0.92rem] text-ink-soft transition-colors duration-500 hover:text-ink"
                   >
                     <span className="eyebrow tabular-nums transition-colors group-hover:text-forest">
                       {String(idx + 1).padStart(2, "0")}
@@ -77,7 +79,7 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 eyebrow tabular-nums">
+              <div className="mt-5 eyebrow tabular-nums">
                 {work.index} / {String(total).padStart(2, "0")}
               </div>
             </FadeUp>
@@ -91,12 +93,22 @@ function WorkPanel({ work, i, total }: { work: Work; i: number; total: number })
 export function SelectedWork() {
   return (
     <section id="work" className="relative">
-      <div className="shell py-24 md:py-36">
-        <SectionHeading
-          eyebrow="Selected work"
-          title="Four things I built."
-          sub="Four different distances between an idea and something people actually use."
+      <div className="shell pb-8 pt-16 md:pb-10 md:pt-24">
+        <FadeUp>
+          <div className="mb-5 flex items-center gap-4">
+            <span className="h-px w-8 bg-ink-faint/60" />
+            <span className="eyebrow">Selected work</span>
+          </div>
+        </FadeUp>
+        <MaskedLines
+          className="display text-[clamp(2.1rem,5.4vw,4rem)]"
+          lines={["Four things I built."]}
         />
+        <FadeUp delay={0.08}>
+          <p className="mt-4 max-w-lg text-ink-soft">
+            Four different distances between an idea and something people actually use.
+          </p>
+        </FadeUp>
       </div>
       <div className="relative">
         {WORKS.map((w, i) => (
