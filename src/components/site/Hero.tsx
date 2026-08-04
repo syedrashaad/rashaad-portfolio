@@ -144,8 +144,8 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* ——— portrait column, pulled toward the centre ——— */}
-        <div className="relative order-1 flex justify-center md:order-1 md:-mr-[26%] md:justify-end lg:-mr-[34%]">
+        {/* ——— portrait column ——— */}
+        <div className="relative order-1 flex justify-center md:order-1 md:justify-start lg:-ml-[6%]">
           <motion.span
             aria-hidden
             style={{ x: ghostX }}
@@ -160,7 +160,7 @@ export function Hero() {
           <motion.div
             style={{
               y: portraitY,
-              x: "-8%",
+              x: "0%",
               scale: portraitScale,
               rotateX: reduced ? 0 : rx,
               rotateY: reduced ? 0 : ry,
@@ -169,7 +169,7 @@ export function Hero() {
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30, scale: 0.985 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 1, duration: 1.25, ease: EASE }}
-            className="relative z-10 w-[min(80vw,28rem)] md:w-[min(42vw,36rem)]"
+            className="relative z-10 w-[min(80vw,26rem)] md:w-[min(36vw,30rem)]"
           >
             <img
               src={p2x.url}
