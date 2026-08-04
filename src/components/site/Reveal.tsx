@@ -61,7 +61,7 @@ export function MaskedLines({
           <motion.span
             className={cn("block", lineClassName)}
             custom={i + delay * 10}
-            variants={reduced ? undefined : lineVariants}
+            {...(reduced ? {} : { variants: lineVariants })}
             initial={reduced ? { opacity: 0 } : "hidden"}
             {...(play === "mount"
               ? { animate: reduced ? { opacity: 1 } : "show" }

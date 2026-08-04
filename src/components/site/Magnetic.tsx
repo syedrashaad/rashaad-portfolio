@@ -27,7 +27,7 @@ export function Magnetic({
     <Comp
       ref={ref as never}
       className={cn("inline-block", className)}
-      style={reduced ? undefined : { x: sx, y: sy }}
+      {...(reduced ? {} : { style: { x: sx, y: sy } })}
       onPointerMove={(e) => {
         if (reduced || e.pointerType !== "mouse") return;
         const rect = ref.current?.getBoundingClientRect();
