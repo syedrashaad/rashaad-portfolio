@@ -10,7 +10,6 @@ import { Nav } from "@/components/site/Nav";
 import { PerficientShowcase } from "@/components/site/PerficientShowcase";
 import { Philosophy } from "@/components/site/Philosophy";
 import { ScrollProgress } from "@/components/site/ScrollProgress";
-import { SelectedWork } from "@/components/site/SelectedWork";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Technology } from "@/components/site/Technology";
 
@@ -46,7 +45,6 @@ function Index() {
         <About />
         <ExperienceSection />
         <PerficientShowcase />
-        <SelectedWork />
         <Technology />
         <Philosophy />
         <Education />
