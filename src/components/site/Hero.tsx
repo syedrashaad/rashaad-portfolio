@@ -107,9 +107,9 @@ export function Hero() {
             transition={{ delay: 1.35, duration: 0.9, ease: EASE }}
             className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.78rem] tracking-[0.16em] uppercase text-ink-faint"
           >
-            <span>AI</span>
+            <span>PRODUCT</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
-            <span>Product</span>
+            <span>AI</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
             <span>Technology</span>
           </motion.div>
