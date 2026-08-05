@@ -1,11 +1,4 @@
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { useRef } from "react";
 
 import p1x from "@/assets/portrait-1x.webp.asset.json";
@@ -63,10 +56,7 @@ export function Hero() {
 
       <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.05fr_0.95fr] md:gap-6">
         {/* ——— type column ——— */}
-        <motion.div
-          style={{ y: typeY, opacity: typeOpacity }}
-          className="relative z-20 order-2 md:order-2"
-        >
+        <motion.div style={{ y: typeY, opacity: typeOpacity }} className="relative z-20 order-2 md:order-2">
           <motion.p
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -91,11 +81,8 @@ export function Hero() {
             {[
               <>I build products</>,
               <>
-                that put{" "}
-                <span className="font-editorial italic font-normal tracking-[-0.02em] text-forest">
-                  AI
-                </span>{" "}
-                to work
+                that put <span className="font-editorial italic font-normal tracking-[-0.02em] text-forest">AI</span> to
+                work
               </>,
               <span key="c" className="text-ink-faint">
                 on real problems.
@@ -120,7 +107,7 @@ export function Hero() {
             transition={{ delay: 1.35, duration: 0.9, ease: EASE }}
             className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.78rem] tracking-[0.16em] uppercase text-ink-faint"
           >
-            <span>AI Product</span>
+            <span>AI</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
             <span>Product</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
