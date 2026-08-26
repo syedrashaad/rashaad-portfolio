@@ -1,4 +1,12 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactNode,
+} from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { X } from "lucide-react";
 
@@ -47,7 +55,9 @@ function ToolChip({ name }: { name: string }) {
   const brand = TECH_BY_NAME[name];
   return (
     <span
-      style={brand ? ({ ["--brand" as string]: `#${brand.hex}` } as React.CSSProperties) : undefined}
+      style={
+        brand ? ({ ["--brand" as string]: `#${brand.hex}` } as React.CSSProperties) : undefined
+      }
       className="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1.5 text-[0.78rem] text-ink-soft"
     >
       {brand?.path ? (
@@ -68,27 +78,28 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
   return (
     <AnimatePresence>
       {study ? (
-        <motion.div key="wrap" className="fixed inset-0 z-[70]">
+        <motion.div key="wrap" className="fixed inset-0 z-[70] flex justify-end">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: EASE }}
+            transition={{ duration: 0.4, ease: EASE }}
             onClick={onClose}
-            className="absolute inset-0 bg-ink/25 backdrop-blur-[2px]"
+            className="fixed inset-0 bg-ink/25 backdrop-blur-[2px]"
           />
 
           <motion.section
             role="dialog"
             aria-modal="true"
             aria-label={study.title}
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ duration: 0.72, ease: EASE }}
-            className="absolute inset-0 overflow-y-auto overscroll-contain bg-paper md:inset-y-0 md:left-auto md:right-0 md:w-[min(46rem,92vw)] md:shadow-[-40px_0_120px_-60px_rgba(20,20,18,0.5)]"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{ duration: 0.55, ease: EASE }}
+            data-lenis-prevent="true"
+            className="relative z-10 flex h-[100dvh] max-h-[100dvh] w-full flex-col bg-paper md:w-[min(46rem,92vw)] md:shadow-[-40px_0_120px_-60px_rgba(20,20,18,0.5)]"
           >
-            <div className="sticky top-0 z-10 flex items-center justify-between gap-4 border-b border-hairline bg-paper/85 px-6 py-4 backdrop-blur-xl md:px-12">
+            <div className="sticky top-0 z-20 flex shrink-0 items-center justify-between gap-4 border-b border-hairline bg-paper/90 px-6 py-4 backdrop-blur-xl md:px-12">
               <span className="eyebrow">{study.context}</span>
               <button
                 type="button"
@@ -96,11 +107,17 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
                 aria-label="Close"
                 className="group flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-ink/[0.05]"
               >
-                <X className="h-4 w-4 text-ink-soft transition-transform duration-500 group-hover:rotate-90" strokeWidth={1.6} />
+                <X
+                  className="h-4 w-4 text-ink-soft transition-transform duration-500 group-hover:rotate-90"
+                  strokeWidth={1.6}
+                />
               </button>
             </div>
 
-            <div className="px-6 pb-24 pt-10 md:px-12 md:pt-14">
+            <div
+              data-lenis-prevent="true"
+              className="custom-scrollbar flex-1 min-h-0 w-full overflow-y-auto overflow-x-hidden overscroll-contain px-6 pb-24 pt-10 md:px-12 md:pt-14"
+            >
               <motion.h2
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -146,7 +163,9 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
                         key={a.step}
                         className="grid grid-cols-[2rem_minmax(0,1fr)] gap-4 border-b border-hairline py-4 md:grid-cols-[2rem_9rem_minmax(0,1fr)]"
                       >
-                        <span className="eyebrow tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="eyebrow tabular-nums">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
                         <span className="text-[0.95rem] tracking-[-0.01em]">{a.step}</span>
                         <span className="col-span-2 text-[0.92rem] leading-relaxed text-ink-soft md:col-span-1">
                           {a.body}
