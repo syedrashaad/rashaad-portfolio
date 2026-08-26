@@ -13,9 +13,9 @@ import { ScrollProgress } from "@/components/site/ScrollProgress";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Technology } from "@/components/site/Technology";
 
-const TITLE = "Rashaad Syed — AI Product, Product & Technology";
+const TITLE = "Rashaad Syed | AI Product & Technology";
 const DESCRIPTION =
-  "Rashaad Syed builds products where AI meets real-world problems — product strategy, intelligent systems and enterprise delivery. London, UK.";
+  "Portfolio of Rashaad Syed. Working across AI, product and technology to build real-world products and intelligent systems.";
 
 export const Route = createFileRoute("/")({
   head: () => ({

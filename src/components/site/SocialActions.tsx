@@ -32,10 +32,10 @@ const ACTIONS: Action[] = [
   },
   {
     label: "Download CV",
-    href: "/rashaad-syed-cv.pdf",
+    href: "/cv/Rashaad-Syed-CV.pdf",
     icon: <ArrowDownToLine className="h-[1.05rem] w-[1.05rem]" strokeWidth={1.6} />,
     hex: "var(--forest)",
-    download: true,
+    external: true,
   },
 ];
 

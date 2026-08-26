@@ -88,8 +88,8 @@ export function HeroVisual() {
         ctx.beginPath();
         for (let s = 0; s <= SEGMENTS; s++) {
           const a = (s / SEGMENTS) * Math.PI * 2;
-          let ex = Math.cos(a) * rxr;
-          let ey = Math.sin(a) * ryr;
+          const ex = Math.cos(a) * rxr;
+          const ey = Math.sin(a) * ryr;
           let x = cx + ex * cos - ey * sin;
           let y = cy + ex * sin + ey * cos;
 

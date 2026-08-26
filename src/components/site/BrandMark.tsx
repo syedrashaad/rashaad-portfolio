@@ -19,12 +19,12 @@ export function TechMark({ brand }: { brand: Brand }) {
         <svg
           viewBox="0 0 24 24"
           aria-hidden
-          className="h-6 w-6 shrink-0 fill-[var(--brand)] opacity-[0.78] saturate-[0.82] transition-[opacity,filter] duration-500 group-hover/mark:opacity-100 group-hover/mark:saturate-100 md:h-7 md:w-7"
+          className="h-6 w-6 shrink-0 fill-[var(--brand)] opacity-100 saturate-100 transition-[opacity,filter] duration-500 md:h-7 md:w-7"
         >
           <path d={brand.path} />
         </svg>
       ) : (
-        <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--brand)] opacity-80 saturate-[0.85] transition duration-500 group-hover/mark:opacity-100 group-hover/mark:saturate-100" />
+        <span className="h-2 w-2 shrink-0 rounded-full bg-[var(--brand)] opacity-100 saturate-100 transition duration-500" />
       )}
       {brand.iconOnly ? null : (
         <span
@@ -32,7 +32,7 @@ export function TechMark({ brand }: { brand: Brand }) {
             "whitespace-nowrap text-[0.95rem] tracking-[-0.02em] transition-colors duration-500 md:text-[1.05rem]",
             brand.path
               ? "text-ink-soft group-hover/mark:text-ink"
-              : "font-medium text-[var(--brand)] opacity-85 saturate-[0.85] group-hover/mark:opacity-100 group-hover/mark:saturate-100",
+              : "font-medium text-[var(--brand)] opacity-100 saturate-100",
           )}
         >
           {brand.wordmark ?? brand.name}

@@ -77,14 +77,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Rashaad Syed | AI Product & Technology" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Rashaad Syed. Working across AI, product and technology to build real-world products and intelligent systems.",
+      },
+      { name: "author", content: "Rashaad Syed" },
+      { property: "og:title", content: "Rashaad Syed | AI Product & Technology" },
+      {
+        property: "og:description",
+        content:
+          "Portfolio of Rashaad Syed. Working across AI, product and technology to build real-world products and intelligent systems.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Rashaad Syed | AI Product & Technology" },
+      {
+        name: "twitter:description",
+        content:
+          "Portfolio of Rashaad Syed. Working across AI, product and technology to build real-world products and intelligent systems.",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -97,7 +110,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
     ],
   }),
   shellComponent: RootShell,

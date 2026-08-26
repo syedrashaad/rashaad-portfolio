@@ -1,9 +1,13 @@
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import { useRef } from "react";
 
-import p1x from "@/assets/portrait-1x.webp.asset.json";
-import p2x from "@/assets/portrait-2x.webp.asset.json";
-import p3x from "@/assets/portrait-3x.webp.asset.json";
 import { HeroVisual } from "./HeroVisual";
 import { SocialActions } from "./SocialActions";
 
@@ -56,7 +60,10 @@ export function Hero() {
 
       <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.05fr_0.95fr] md:gap-6">
         {/* ——— type column ——— */}
-        <motion.div style={{ y: typeY, opacity: typeOpacity }} className="relative z-20 order-2 md:order-2">
+        <motion.div
+          style={{ y: typeY, opacity: typeOpacity }}
+          className="relative z-20 order-2 md:order-2"
+        >
           <motion.p
             initial={reduced ? { opacity: 0 } : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,8 +88,11 @@ export function Hero() {
             {[
               <>I build products</>,
               <>
-                that put <span className="font-editorial italic font-normal tracking-[-0.02em] text-forest">AI</span> to
-                work
+                that put{" "}
+                <span className="font-editorial italic font-normal tracking-[-0.02em] text-forest">
+                  AI
+                </span>{" "}
+                to work
               </>,
               <span key="c" className="text-ink-faint">
                 on real problems.
@@ -159,9 +169,7 @@ export function Hero() {
             className="relative z-10 w-[min(80vw,28rem)] md:w-[min(40vw,34rem)]"
           >
             <img
-              src={p2x.url}
-              srcSet={`${p1x.url} 424w, ${p2x.url} 636w, ${p3x.url} 1272w`}
-              sizes="(max-width: 767px) 80vw, min(42vw, 36rem)"
+              src="/images/rashaad-hero.png"
               alt="Rashaad Syed"
               width={424}
               height={469}

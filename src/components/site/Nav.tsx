@@ -92,8 +92,9 @@ export function Nav() {
           ))}
           <Magnetic strength={0.25}>
             <a
-              href="/rashaad-syed-cv.pdf"
-              download=""
+              href="/cv/Rashaad-Syed-CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-3 inline-flex items-center gap-1.5 rounded-full bg-ink px-4 py-1.5 text-[0.75rem] text-paper transition-colors hover:bg-forest"
             >
               CV <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.8} />
