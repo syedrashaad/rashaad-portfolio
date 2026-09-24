@@ -67,13 +67,13 @@ function MarqueeRow({
 
   return (
     <div
-      className="relative overflow-hidden py-4"
+      className="relative overflow-hidden py-2 md:py-3"
       onPointerEnter={() => setSlow(true)}
       onPointerLeave={() => setSlow(false)}
     >
       <div
         className={cn(
-          "flex w-max items-center gap-12 md:gap-20",
+          "flex w-max items-center gap-10 md:gap-16",
           direction === "left" ? "marquee-track-left" : "marquee-track-right",
         )}
         style={
@@ -84,19 +84,17 @@ function MarqueeRow({
           <TechMark key={`${brand.name}-${i}`} brand={brand} />
         ))}
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-paper to-transparent md:w-48" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-paper to-transparent md:w-48" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-paper to-transparent md:w-36" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-paper to-transparent md:w-36" />
     </div>
   );
 }
 
 export function Technology() {
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const drift = useTransform(scrollYProgress, [0, 1], [22, -22]);
 
   return (
-    <section id="stack" ref={ref} className="relative overflow-hidden pb-14 pt-16 md:pb-16 md:pt-24">
+    <section id="stack" ref={ref} className="relative overflow-hidden pb-10 pt-14 md:pb-12 md:pt-16">
       <div className="shell">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
           <div>
@@ -124,7 +122,7 @@ export function Technology() {
           </FadeUp>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {TOOLKIT_CATEGORIES.map((cat, idx) => (
             <FadeUp key={cat.title} delay={0.05 * idx}>
               <div className={cn(
@@ -153,10 +151,10 @@ export function Technology() {
         </div>
       </div>
 
-      <motion.div style={{ y: drift }} className="mt-14 space-y-4 md:mt-16 md:space-y-6">
+      <div className="marquee-stack mt-10 md:mt-12 flex flex-col gap-3.5 md:gap-5 overflow-hidden">
         <MarqueeRow items={TECH_ROW_ONE} direction="left" duration={52} />
         <MarqueeRow items={TECH_ROW_TWO} direction="right" duration={48} />
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -39,7 +39,7 @@ export function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative overflow-hidden pb-16 pt-24 md:pb-20 md:pt-20"
+      className="relative overflow-hidden pb-10 pt-20 md:pb-14 md:pt-24"
       onPointerMove={(e) => {
         if (reduced || e.pointerType !== "mouse") return;
         tiltY.set(((e.clientX / window.innerWidth) * 2 - 1) * 2);
@@ -58,7 +58,7 @@ export function Hero() {
       </motion.div>
       <div className="pointer-events-none absolute left-[2%] top-[8%] h-[52vh] w-[52vh] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_oklab,var(--forest)_14%,transparent),transparent_68%)] blur-2xl" />
 
-      <div className="shell relative grid min-h-[calc(100svh-9rem)] items-center gap-4 md:grid-cols-[1.05fr_0.95fr] md:gap-6">
+      <div className="shell relative grid items-center gap-8 py-8 md:grid-cols-[1.05fr_0.95fr] md:gap-12 md:py-16">
         {/* ——— type column ——— */}
         <motion.div
           style={{ y: typeY, opacity: typeOpacity }}
@@ -184,17 +184,6 @@ export function Hero() {
           </motion.div>
         </div>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.9, duration: 1 }}
-        className="shell relative z-10 mt-2 flex items-center justify-between text-[0.72rem] tracking-[0.2em] uppercase text-ink-faint"
-      >
-        <span>Scroll</span>
-        <span className="h-px flex-1 mx-6 bg-hairline" />
-        <span><strong className="text-forest font-semibold">PRODUCT</strong> · AI · TECHNOLOGY</span>
-      </motion.div>
     </section>
   );
 }

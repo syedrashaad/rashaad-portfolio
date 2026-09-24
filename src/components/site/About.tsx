@@ -51,9 +51,9 @@ function EmphasisWord({
 
 export function About() {
   return (
-    <section id="about" className="shell relative pb-14 pt-16 md:pb-20 md:pt-28">
-      <div className="grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-        <div className="lg:sticky lg:top-32 lg:self-start">
+    <section id="about" className="shell relative pb-12 pt-12 md:pb-16 md:pt-16">
+      <div className="grid items-start gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <div>
           <FadeUp>
             <div className="mb-8 flex items-center gap-4">
               <span className="h-px w-8 bg-ink-faint/60" />

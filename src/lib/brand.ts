@@ -44,6 +44,7 @@ export const TECH_ROW_TWO: Brand[] = [
   { name: "Docker", path: siDocker.path, hex: siDocker.hex },
   { name: "SQL", path: siPostgresql.path, hex: siPostgresql.hex },
   { name: "Power BI", wordmark: "Power BI", hex: "E8B008" },
+  { name: "Tableau", wordmark: "Tableau", hex: "E97627" },
   { name: "Figma", path: siFigma.path, hex: siFigma.hex },
 ];
 
