@@ -193,7 +193,7 @@ export function Hero() {
       >
         <span>Scroll</span>
         <span className="h-px flex-1 mx-6 bg-hairline" />
-        <span>Product, AI, Technology</span>
+        <span>PRODUCT · AI · TECHNOLOGY</span>
       </motion.div>
     </section>
   );

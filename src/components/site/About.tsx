@@ -4,8 +4,11 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { FadeUp, MaskedLines } from "./Reveal";
 import { TIMELINE_STAGES } from "@/lib/portfolio-data";
 
-const STORY =
-  "I started in machine learning research - deep networks, scientific imaging, the unglamorous work of making a model behave. Engineering came next: shipping software, then enterprise AI systems that had to hold up in production. Somewhere between the data pipelines and the stakeholder rooms I realised the hardest question was never can we build it. It was should we, for whom, and how will we know it worked. That question moved me into analytics, consulting, and eventually owning products end to end.";
+const STORY_PART_ONE =
+  "I started with software engineering and ML research, then moved closer to the problems behind the technology: understanding users, defining what to build, working with engineers, and measuring whether it actually worked.";
+
+const STORY_PART_TWO =
+  "My work has ranged from AI products and LLM systems to demand forecasting, document automation and B2B eCommerce. I like working on products where the problem is still a little messy and the solution needs both product thinking and technical depth.";
 
 function EmphasisParagraph({ text }: { text: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
@@ -18,7 +21,7 @@ function EmphasisParagraph({ text }: { text: string }) {
   return (
     <p
       ref={ref}
-      className="flex flex-wrap text-[clamp(1.15rem,2.4vw,1.85rem)] leading-[1.45] tracking-[-0.02em]"
+      className="flex flex-wrap text-[clamp(1.1rem,2.2vw,1.65rem)] leading-[1.5] tracking-[-0.015em] text-ink"
     >
       {words.map((word, i) => {
         const start = i / words.length;
@@ -38,9 +41,9 @@ function EmphasisWord({
   range: [number, number];
   word: string;
 }) {
-  const opacity = useTransform(progress, range, [0.22, 1]);
+  const opacity = useTransform(progress, range, [0.25, 1]);
   return (
-    <span className="mr-[0.28em]">
+    <span className="mr-[0.3em] inline-block">
       <motion.span style={{ opacity }}>{word}</motion.span>
     </span>
   );
@@ -72,10 +75,11 @@ export function About() {
           />
         </div>
 
-        <div className="flex flex-col gap-16">
-          <EmphasisParagraph text={STORY} />
+        <div className="flex flex-col gap-10">
+          <EmphasisParagraph text={STORY_PART_ONE} />
+          <EmphasisParagraph text={STORY_PART_TWO} />
 
-          <div>
+          <div className="pt-4">
             <FadeUp>
               <div className="eyebrow mb-6">The progression</div>
             </FadeUp>

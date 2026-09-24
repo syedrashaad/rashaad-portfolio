@@ -6,6 +6,53 @@ import { FadeUp, MaskedLines } from "./Reveal";
 import { TECH_ROW_ONE, TECH_ROW_TWO } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
+const TOOLKIT_CATEGORIES = [
+  {
+    title: "AI & ML",
+    skills: [
+      "LLM & RAG Architectures",
+      "Vector DBs & Embeddings",
+      "Document AI & Vision",
+      "PyTorch & scikit-learn",
+      "XGBoost Forecasting",
+      "Explainable AI (XAI)",
+    ],
+  },
+  {
+    title: "Product & Strategy",
+    skills: [
+      "Product Discovery & Research",
+      "Voice UX & Interaction Flow",
+      "Roadmap & Requirement Scoping",
+      "User Feedback Loops",
+      "Figma & Rapid Prototyping",
+      "Stakeholder Management",
+    ],
+  },
+  {
+    title: "Data & Analytics",
+    skills: [
+      "SQL & Data Pipelines",
+      "Python (Pandas / NumPy)",
+      "Customer Segmentation (K-Means)",
+      "Time-Series & Revenue Views",
+      "Power BI & Dashboards",
+      "Behavioural Regime Analysis",
+    ],
+  },
+  {
+    title: "Engineering & Cloud",
+    skills: [
+      "TypeScript & JavaScript",
+      "Node.js & React",
+      "Azure & Google Cloud",
+      "Docker & Containerization",
+      "Stripe Payments Integration",
+      "Git & CI/CD Pipelines",
+    ],
+  },
+];
+
 function MarqueeRow({
   items,
   direction,
@@ -62,24 +109,46 @@ export function Technology() {
             <MaskedLines
               className="display text-[clamp(1.7rem,3.6vw,2.6rem)]"
               lines={[
-                <span key="a">What the work is</span>,
+                <span key="a">The tools change.</span>,
                 <span key="b" className="text-ink-faint">
-                  actually{" "}
-                  <span className="font-editorial italic font-normal text-forest">built on.</span>
+                  The way I work{" "}
+                  <span className="font-editorial italic font-normal text-forest">doesn't.</span>
                 </span>,
               ]}
             />
           </div>
           <FadeUp delay={0.08}>
             <p className="max-w-sm text-[0.95rem] text-ink-soft">
-              Not a list of everything I have touched. These are the tools the work in this
-              portfolio was actually made with.
+              Across AI, product, data, and engineering, these are the core capabilities and toolsets applied across real-world enterprise and commercial systems.
             </p>
           </FadeUp>
         </div>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {TOOLKIT_CATEGORIES.map((cat, idx) => (
+            <FadeUp key={cat.title} delay={0.05 * idx}>
+              <div className="h-full rounded-sm border border-hairline/70 bg-paper-deep/20 p-6 flex flex-col justify-between hover:border-hairline transition-colors">
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="h-1.5 w-1.5 rounded-full bg-forest" />
+                    <h3 className="eyebrow text-ink tracking-[0.12em]">{cat.title}</h3>
+                  </div>
+                  <ul className="space-y-2.5">
+                    {cat.skills.map((skill) => (
+                      <li key={skill} className="text-[0.88rem] text-ink-soft flex items-center gap-2">
+                        <span className="text-forest/60 text-[0.7rem]">→</span>
+                        <span>{skill}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
       </div>
 
-      <motion.div style={{ y: drift }} className="mt-8 md:mt-10">
+      <motion.div style={{ y: drift }} className="mt-14 md:mt-16">
         <MarqueeRow items={TECH_ROW_ONE} direction="left" duration={52} />
         <MarqueeRow items={TECH_ROW_TWO} direction="right" duration={58} />
       </motion.div>
