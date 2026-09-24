@@ -72,7 +72,7 @@ export function Contact() {
       <div className="mt-14 flex flex-wrap items-center justify-between gap-6">
         <SocialActions className="-ml-2.5" />
         <span className="text-[0.72rem] tracking-[0.2em] uppercase text-ink-faint">
-          Rashaad Syed — London, UK
+          Rashaad Syed | London, UK
         </span>
       </div>
     </section>

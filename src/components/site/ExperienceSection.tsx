@@ -9,8 +9,9 @@ import { EXPERIENCES } from "@/lib/portfolio-data";
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const SIGNAL: Record<string, { value: string; label: string }> = {
+  magpie: { value: "AI × Product", label: "roadmap & user insights" },
   nexus: { value: "0 → 1", label: "shipped MVP" },
-  harrods: { value: "30M+", label: "transactions" },
+  harrods: { value: "13M+", label: "transactions" },
   perficient: { value: "10K+", label: "daily queries" },
   "code-facts": { value: "First", label: "production codebase" },
   vit: { value: "3D", label: "volumetric imaging" },

@@ -25,18 +25,21 @@ export function PerficientShowcase() {
             <MaskedLines
               className="mt-5 display text-[clamp(1.9rem,4.4vw,3.2rem)]"
               lines={[
-                <span key="1">Enterprise AI, ML</span>,
+                <span key="1">Enterprise AI, Data</span>,
                 <span key="2" className="text-ink-faint">
-                  and <span className="font-editorial italic font-normal text-forest">data</span>, in
-                  production.
+                  and{" "}
+                  <span className="font-editorial italic font-normal text-forest">
+                    Digital Products
+                  </span>
+                  , in production.
                 </span>,
               ]}
             />
           </div>
           <FadeUp delay={0.1}>
             <p className="max-w-md text-ink-soft">
-              Four client contexts. Each one a different version of the same problem: making
-              something intelligent dependable inside a business that already works a certain way.
+              Four client contexts across AI platforms, knowledge systems, finance automation, and
+              B2B eCommerce delivery.
             </p>
           </FadeUp>
         </div>

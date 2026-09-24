@@ -55,6 +55,7 @@ export const TECH_BY_NAME: Record<string, Brand> = Object.fromEntries(
 
 /** Employers. Typographic marks, since no licensed logo assets are available. */
 export const COMPANY_BRAND: Record<string, { hex: string; mark: string }> = {
+  magpie: { hex: "1C7C6B", mark: "Talk to Magpie AI" },
   nexus: { hex: "1C7C6B", mark: "Nexus" },
   harrods: { hex: "7A6320", mark: "HARRODS" },
   perficient: { hex: "C8102E", mark: "Perficient" },

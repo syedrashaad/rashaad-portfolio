@@ -5,7 +5,7 @@ import { FadeUp, MaskedLines } from "./Reveal";
 import { TIMELINE_STAGES } from "@/lib/portfolio-data";
 
 const STORY =
-  "I started in machine learning research — deep networks, scientific imaging, the unglamorous work of making a model behave. Engineering came next: shipping software, then enterprise AI systems that had to hold up in production. Somewhere between the data pipelines and the stakeholder rooms I realised the hardest question was never can we build it. It was should we, for whom, and how will we know it worked. That question moved me into analytics, consulting, and eventually owning products end to end.";
+  "I started in machine learning research - deep networks, scientific imaging, the unglamorous work of making a model behave. Engineering came next: shipping software, then enterprise AI systems that had to hold up in production. Somewhere between the data pipelines and the stakeholder rooms I realised the hardest question was never can we build it. It was should we, for whom, and how will we know it worked. That question moved me into analytics, consulting, and eventually owning products end to end.";
 
 function EmphasisParagraph({ text }: { text: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
@@ -66,10 +66,7 @@ export function About() {
                 Product builder
               </span>,
               <span key="d" className="text-ink-faint">
-                by{" "}
-                <span className="font-editorial italic font-normal text-forest">
-                  evolution.
-                </span>
+                by <span className="font-editorial italic font-normal text-forest">evolution.</span>
               </span>,
             ]}
           />

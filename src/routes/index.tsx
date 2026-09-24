@@ -39,7 +39,7 @@ function Index() {
       <Nav />
       <main>
         <h1 className="sr-only">
-          Rashaad Syed — AI product builder working across product, AI and technology
+          Rashaad Syed | AI product builder working across product, AI and technology
         </h1>
         <Hero />
         <About />

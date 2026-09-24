@@ -9,11 +9,20 @@ export type Experience = {
 
 export const EXPERIENCES: Experience[] = [
   {
+    id: "magpie",
+    company: "Talk to Magpie AI",
+    role: "Product Manager Associate",
+    location: "London / Remote",
+    period: "Sep 2026 to Present",
+    narrative:
+      "I work with the product team to understand how customers use the product, turn user feedback into product insights, and help shape the roadmap and experiences around those needs.",
+  },
+  {
     id: "nexus",
     company: "Nexus",
     role: "Co-Founder & Product Lead",
     location: "London",
-    period: "2026 — Present",
+    period: "Apr 2026 to Present",
     narrative:
       "Nexus started with a simple question: could we make it easier for students to meet the right people? I took it from early conversations through to a shipped MVP.",
   },
@@ -22,25 +31,25 @@ export const EXPERIENCES: Experience[] = [
     company: "Harrods",
     role: "Student Consultant, London LAB",
     location: "London",
-    period: "2026",
+    period: "Mar 2026 to Jun 2026",
     narrative:
-      "Harrods gave us a broad commercial problem rather than a defined solution. I helped narrow it into something we could actually test, using more than 30 million transactions.",
+      "Harrods gave us a broad commercial problem rather than a defined solution. I helped narrow it into something we could actually test, using more than 13 million transactions.",
   },
   {
     id: "perficient",
     company: "Perficient",
     role: "Associate Technical Consultant",
     location: "Bangalore",
-    period: "Jun 2023 — Oct 2024",
+    period: "Jun 2023 to Oct 2024",
     narrative:
-      "Sixteen months building AI, ML and data systems for enterprise clients. Different industries, same hard part: making the thing dependable once real people rely on it.",
+      "Sixteen months building AI, ML, data platforms, and B2B eCommerce systems for enterprise clients. Translating business needs into products and systems engineers could deliver.",
   },
   {
     id: "code-facts",
     company: "Code Facts",
     role: "Software Development Intern",
     location: "Remote",
-    period: "2023",
+    period: "Jan 2023 to May 2023",
     narrative:
       "My first proper engineering team. I learned what it actually takes for code to become something other people depend on.",
   },
@@ -49,7 +58,7 @@ export const EXPERIENCES: Experience[] = [
     company: "VIT University",
     role: "Research Assistant",
     location: "India",
-    period: "2021 — 2022",
+    period: "Sep 2021 to Aug 2022",
     narrative:
       "Deep convolutional networks applied to cryo-electron tomography. Small datasets, noisy volumes, and a requirement that we could explain what the model was doing.",
   },
@@ -83,9 +92,9 @@ export const PERFICIENT_PROJECTS: ClientProject[] = [
   },
   {
     id: "northshore",
-    client: "NorthShore Care",
-    kicker: "Data / ML / forecasting",
-    line: "Planning decisions were being made without any forward view of demand.",
+    client: "NorthShore Care Supply",
+    kicker: "B2B eCommerce / Product / Technology",
+    line: "Reengineering a B2B eCommerce experience across product discovery, checkout and payments.",
   },
 ];
 
@@ -101,8 +110,21 @@ export type Work = {
 
 export const WORKS: Work[] = [
   {
-    id: "nexus",
+    id: "magpie",
     index: "01",
+    title: "Talk to Magpie AI",
+    label: "AI product, voice UX",
+    lede: "Turning direct user feedback and AI interaction testing into product insights and roadmap recommendations.",
+    points: [
+      "Gathered direct feedback from active users",
+      "Stress-tested voice UX and conversation flow",
+      "Identified friction in AI response quality and recovery",
+      "Influenced product roadmap and feature priorities",
+    ],
+  },
+  {
+    id: "nexus",
+    index: "02",
     title: "Nexus",
     label: "AI product, 0 to 1",
     lede: "From a vague idea to a product with users, one metric that mattered, and a reason to keep iterating.",
@@ -116,7 +138,7 @@ export const WORKS: Work[] = [
   },
   {
     id: "harrods",
-    index: "02",
+    index: "03",
     title: "Harrods",
     label: "AI, analytics, product",
     lede: "A broad commercial question, narrowed into something a team could test and act on.",
@@ -127,19 +149,19 @@ export const WORKS: Work[] = [
       "Presented the recommendation to senior leadership",
     ],
     metrics: [
-      { value: "30M+", label: "transactions analysed" },
+      { value: "13M+", label: "transactions analysed" },
       { value: "2", label: "model families deployed" },
     ],
   },
   {
     id: "perficient",
-    index: "03",
+    index: "04",
     title: "Perficient",
-    label: "AI systems at scale",
-    lede: "Enterprise AI that had to survive production: latency, uptime, observability, trust.",
+    label: "AI, data & eCommerce systems",
+    lede: "Enterprise AI, data infrastructure, and B2B eCommerce reengineering built for scale and reliability.",
     points: [
       "Production LLM assistants and retrieval systems",
-      "Cloud AI infrastructure and automation",
+      "B2B eCommerce checkout and Stripe payment integration",
       "Four client contexts, one engineering standard",
     ],
     metrics: [
@@ -150,7 +172,7 @@ export const WORKS: Work[] = [
   },
   {
     id: "vit",
-    index: "04",
+    index: "05",
     title: "ML Research",
     label: "Deep learning, computer vision",
     lede: "Deep convolutional networks for cryo-electron tomography, with explainability built in from the start.",
@@ -176,6 +198,33 @@ export type CaseStudy = {
 };
 
 export const CASE_STUDIES: Record<string, CaseStudy> = {
+  magpie: {
+    id: "magpie",
+    title: "Talk to Magpie AI",
+    role: "Product Manager Associate",
+    context: "AI product / Voice & AI experiences",
+    year: "Sep 2026 to Present",
+    situation:
+      "Understanding how users interact with AI voice and roleplay experiences, identifying where conversation flows break, and figuring out what needs to change to make the product more valuable.",
+    what: "I work with the product team to understand how customers use the product, turn user feedback into product insights, and help shape the roadmap and experiences around those needs. My work spans user feedback, voice UX, conversation flow, assessment experiences, and recovery from poor interactions.",
+    approach: [
+      { step: "Listen", body: "Talk to users and gather direct feedback on their experiences." },
+      { step: "Test", body: "Stress-test product experiences, voice UX, and AI interactions." },
+      {
+        step: "Learn",
+        body: "Identify patterns across conversation flow, response quality, and user friction.",
+      },
+      {
+        step: "Shape",
+        body: "Turn those insights into concrete product and roadmap recommendations.",
+      },
+    ],
+    outcome: [
+      { value: "Insights", label: "user feedback into roadmap decisions" },
+      { value: "Voice UX", label: "refined conversation & response quality" },
+    ],
+    tools: ["Product Analytics", "User Research", "Voice UX", "Figma", "Python"],
+  },
   nexus: {
     id: "nexus",
     title: "Nexus",
@@ -186,10 +235,22 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       "Students meet a lot of people and almost none of the right ones. The signal is there, it is just buried in societies, group chats and coincidence. We wanted to know whether that could be made deliberate without it feeling like a dating app.",
     what: "I owned the product. I ran the early conversations, wrote the definition, designed the matching logic and built the evaluation loop that told us whether a match was any good. The interesting part was resisting features. Almost every idea we had made the product worse, and figuring out which two or three did not was most of the work.",
     approach: [
-      { step: "Discovery", body: "Interviews first. No spec until we understood what people were actually trying to do." },
-      { step: "Definition", body: "One problem, scoped small enough that we could ship it and still learn something." },
-      { step: "Matching", body: "Personalisation logic built around signals people would genuinely act on." },
-      { step: "Evaluation", body: "A measurement loop, so match quality was a number rather than an opinion." },
+      {
+        step: "Discovery",
+        body: "Interviews first. No spec until we understood what people were actually trying to do.",
+      },
+      {
+        step: "Definition",
+        body: "One problem, scoped small enough that we could ship it and still learn something.",
+      },
+      {
+        step: "Matching",
+        body: "Personalisation logic built around signals people would genuinely act on.",
+      },
+      {
+        step: "Evaluation",
+        body: "A measurement loop, so match quality was a number rather than an opinion.",
+      },
     ],
     outcome: [
       { value: "0 to 1", label: "shipped MVP" },
@@ -205,15 +266,24 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     year: "2026",
     situation:
       "Harrods came to us with a commercial question rather than a brief. There was no defined solution and no shortage of data. The risk was producing an impressive analysis that nobody could act on.",
-    what: "I helped narrow the question into something testable. We worked through more than 30 million transactions to find where forecasting and segmentation would actually change a decision, then built both. My focus was making sure the output landed as a recommendation, not a dashboard.",
+    what: "I helped narrow the question into something testable. We worked through more than 13 million transactions to find where forecasting and segmentation would actually change a decision, then built both. My focus was making sure the output landed as a recommendation, not a dashboard.",
     approach: [
-      { step: "Reframe", body: "Turned a wide brief into a specific decision the business could make." },
-      { step: "Evidence", body: "Worked through 30M+ transactions to find where the leverage was." },
-      { step: "Model", body: "Customer segmentation and demand forecasting, built to be questioned." },
+      {
+        step: "Reframe",
+        body: "Turned a wide brief into a specific decision the business could make.",
+      },
+      {
+        step: "Evidence",
+        body: "Worked through 13M+ transactions to find where the leverage was.",
+      },
+      {
+        step: "Model",
+        body: "Customer segmentation and demand forecasting, built to be questioned.",
+      },
       { step: "Land it", body: "Presented findings and a recommendation to senior stakeholders." },
     ],
     outcome: [
-      { value: "30M+", label: "transactions analysed" },
+      { value: "13M+", label: "transactions analysed" },
       { value: "2", label: "model families deployed" },
     ],
     tools: ["Python", "SQL", "scikit-learn", "Power BI"],
@@ -222,15 +292,24 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     id: "perficient",
     title: "Perficient",
     role: "Associate Technical Consultant",
-    context: "Enterprise AI consulting",
-    year: "2023 — 2024",
+    context: "Enterprise AI & digital product consulting",
+    year: "2023 to 2024",
     situation:
-      "Enterprise clients wanted AI in production, not in a slide deck. Each one had existing systems, existing processes and very little appetite for something that would break quietly.",
-    what: "I moved between ML, data engineering and analytics depending on what the client needed. Most of my time went on the parts nobody demos: retrieval quality, latency, observability, and the handover that decides whether a system survives after you leave.",
+      "Enterprise clients wanted AI and modern digital products in production, not in a slide deck. Each one had existing systems, existing processes and very little appetite for something that would break quietly.",
+    what: "I moved between ML, data engineering, product requirements, and eCommerce platform reengineering depending on what the client needed. Most of my time went on the parts nobody demos: platform reliability, payment integration, latency, observability, and the handover that decides whether a system survives after you leave.",
     approach: [
-      { step: "Scope", body: "Worked directly with client teams to define what was worth building." },
-      { step: "Build", body: "LLM assistants, retrieval systems and the data pipelines underneath." },
-      { step: "Harden", body: "Cloud AI infrastructure, automation and monitoring." },
+      {
+        step: "Scope",
+        body: "Worked directly with client teams to define what was worth building.",
+      },
+      {
+        step: "Build",
+        body: "LLM assistants, retrieval systems, eCommerce workflows, and data pipelines underneath.",
+      },
+      {
+        step: "Harden",
+        body: "Cloud AI infrastructure, payment integration, automation and monitoring.",
+      },
       { step: "Hand over", body: "Documentation and enablement so the team could own it." },
     ],
     outcome: [
@@ -238,7 +317,17 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       { value: "<2s", label: "latency" },
       { value: "99.9%", label: "uptime" },
     ],
-    tools: ["Python", "Azure", "Google Cloud", "Docker", "LangChain", "SQL"],
+    tools: [
+      "Python",
+      "Azure",
+      "Google Cloud",
+      "Docker",
+      "LangChain",
+      "SQL",
+      "JavaScript",
+      ".NET",
+      "Stripe",
+    ],
   },
   "code-facts": {
     id: "code-facts",
@@ -262,7 +351,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     title: "ML Research",
     role: "Research Assistant, VIT",
     context: "Cryo-electron tomography",
-    year: "2021 — 2022",
+    year: "2021 to 2022",
     situation:
       "Cryo-ET produces noisy three dimensional volumes and very few labels, because labelling them is slow and expensive. A model that scores well and cannot be explained is not useful to a scientist.",
     what: "I built and trained deep CNN architectures for volumetric data, then applied explainability methods so we could inspect what the network was responding to. The constraint I remember most is how little data we had, and how much that shapes every decision you make.",
@@ -314,7 +403,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
       { step: "Workflow", body: "Designed the AI into existing ways of working, not beside them." },
     ],
     outcome: [
-      { value: "Manual → guided", label: "knowledge retrieval" },
+      { value: "Guided", label: "knowledge retrieval" },
       { value: "Grounded", label: "answers, or none" },
     ],
     tools: ["Python", "LangChain", "Azure", "SQL"],
@@ -324,7 +413,7 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
     title: "Aristocrat",
     role: "Associate Technical Consultant",
     context: "Finance operations",
-    year: "2023 — 2024",
+    year: "2023 to 2024",
     situation:
       "Finance operations depended on people reading documents and typing the contents into systems. Slow, repetitive, and the sort of task where accuracy quietly drops.",
     what: "I built document and finance automation on Google Cloud. Extraction accuracy was the whole game. If people still double check every field, you have not saved them anything, so we tuned until the checking stopped.",
@@ -341,23 +430,30 @@ export const CASE_STUDIES: Record<string, CaseStudy> = {
   },
   northshore: {
     id: "northshore",
-    title: "NorthShore Care",
+    title: "NorthShore Care Supply",
     role: "Associate Technical Consultant",
-    context: "Care operations",
-    year: "2023 — 2024",
+    context: "B2B eCommerce / Product / Technology",
+    year: "2023 to 2024",
     situation:
-      "Planning was happening without a reliable forward view of demand. Teams were reacting rather than preparing, and the data to do better already existed.",
-    what: "I built the pipelines and the forecasting models, then the analytics layer on top. My focus was readability. A forecast that operational teams cannot question is a forecast they will ignore.",
+      "The existing eCommerce experience needed to evolve into a smoother purchasing journey for customers.",
+    what: "I worked across the product and technical side of the reengineering effort, looking at how customers moved from product discovery through checkout and payment. I also worked with the engineering team on the implementation details rather than treating the work as a purely UX exercise.",
     approach: [
-      { step: "Pipelines", body: "Made the underlying data trustworthy and current." },
-      { step: "Forecast", body: "ML models for demand, tuned to the planning horizon." },
-      { step: "Surface", body: "Analytics people would actually open and argue with." },
+      {
+        step: "Discovery",
+        body: "Mapped the existing purchasing journey and identified friction.",
+      },
+      { step: "Commerce", body: "Worked through product listing and checkout requirements." },
+      { step: "Payments", body: "Integrated Stripe into the payment workflow." },
+      {
+        step: "Delivery",
+        body: "Worked with engineering to turn requirements into a working experience.",
+      },
     ],
     outcome: [
-      { value: "Forward view", label: "of demand, weekly" },
-      { value: "In planning", label: "not in a filed report" },
+      { value: "Reengineered", label: "B2B purchasing journey" },
+      { value: "Stripe", label: "integrated payment workflow" },
     ],
-    tools: ["Python", "SQL", "scikit-learn", "Power BI"],
+    tools: ["JavaScript", ".NET", "Stripe", "SQL", "Figma"],
   },
 };
 
@@ -365,13 +461,13 @@ export const EDUCATION = [
   {
     school: "London Business School",
     degree: "Master's in Analytics and Management",
-    period: "2025 — 2026",
+    period: "2025 to 2026",
     location: "London",
   },
   {
     school: "VIT University",
     degree: "B.Tech Computer Science & Engineering\u00a0\nSpec. in Networks & Security",
-    period: "2019 — 2023",
+    period: "2019 to 2023",
     location: "India",
   },
 ];
@@ -380,6 +476,6 @@ export const TIMELINE_STAGES = [
   "ML Research",
   "Software Engineering",
   "AI & Data",
-  "Product",
+  "eCommerce & Product",
   "AI Product",
 ];
