@@ -153,8 +153,9 @@ export function Technology() {
         </div>
       </div>
 
-      <motion.div style={{ y: drift }} className="mt-14 md:mt-16">
+      <motion.div style={{ y: drift }} className="mt-14 space-y-4 md:mt-16 md:space-y-6">
         <MarqueeRow items={TECH_ROW_ONE} direction="left" duration={52} />
+        <MarqueeRow items={TECH_ROW_TWO} direction="right" duration={48} />
       </motion.div>
     </section>
   );
