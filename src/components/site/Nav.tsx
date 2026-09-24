@@ -6,10 +6,11 @@ import { Magnetic } from "./Magnetic";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
-  { label: "About", href: "#about", id: "about" },
-  { label: "Experience", href: "#experience", id: "experience" },
-  { label: "Toolkit", href: "#stack", id: "stack" },
-  { label: "Contact", href: "#contact", id: "contact" },
+  { label: "Work", id: "work" },
+  { label: "About", id: "about" },
+  { label: "Experience", id: "experience" },
+  { label: "Toolkit", id: "stack" },
+  { label: "Contact", id: "contact" },
 ];
 
 export function Nav() {
@@ -53,6 +54,22 @@ export function Nav() {
     };
   }, [open]);
 
+  const handleNavClick = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    setOpen(false);
+    if (id === "top") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+    if (window.location.hash) {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
       <motion.div
@@ -65,7 +82,11 @@ export function Nav() {
             : "mt-0 w-full max-w-none rounded-none border border-transparent bg-transparent px-6 py-6 md:px-12",
         )}
       >
-        <a href="#top" className="font-medium tracking-[-0.03em]">
+        <a
+          href="/"
+          onClick={(e) => handleNavClick(e, "top")}
+          className="font-medium tracking-[-0.03em]"
+        >
           <span className={cn("transition-all duration-500", condensed ? "text-sm" : "text-base")}>
             {condensed ? "RS." : "Rashaad Syed"}
           </span>
@@ -74,11 +95,13 @@ export function Nav() {
         <nav className="hidden items-center gap-1 md:flex">
           {LINKS.map((l) => (
             <a
-              key={l.href}
-              href={l.href}
+              key={l.id}
+              href={`#${l.id}`}
+              onClick={(e) => handleNavClick(e, l.id)}
               className={cn(
                 "relative rounded-full px-3 py-1.5 text-[0.8rem] tracking-[-0.01em] transition-colors duration-500",
-                active === l.id ? "text-ink" : "text-ink-faint hover:text-ink",
+                active === l.id ? "text-ink font-medium" : "text-ink-faint hover:text-ink",
+                l.id === "work" && "text-forest font-semibold",
               )}
             >
               {active === l.id ? (
@@ -133,8 +156,8 @@ export function Nav() {
           {LINKS.map((l, i) => (
             <motion.a
               key={l.label}
-              href={l.href}
-              onClick={() => setOpen(false)}
+              href={`#${l.id}`}
+              onClick={(e) => handleNavClick(e, l.id)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 * i, ease: [0.22, 1, 0.36, 1] }}

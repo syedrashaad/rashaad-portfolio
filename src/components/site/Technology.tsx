@@ -8,47 +8,47 @@ import { cn } from "@/lib/utils";
 
 const TOOLKIT_CATEGORIES = [
   {
-    title: "AI & ML",
+    title: "PRODUCT",
     skills: [
-      "LLM & RAG Architectures",
-      "Vector DBs & Embeddings",
-      "Document AI & Vision",
-      "PyTorch & scikit-learn",
-      "XGBoost Forecasting",
-      "Explainable AI (XAI)",
-    ],
-  },
-  {
-    title: "Product & Strategy",
-    skills: [
-      "Product Discovery & Research",
-      "Voice UX & Interaction Flow",
-      "Roadmap & Requirement Scoping",
-      "User Feedback Loops",
-      "Figma & Rapid Prototyping",
+      "Product Strategy & Discovery",
+      "PRDs & Requirement Scoping",
+      "Roadmaps & Prioritisation",
+      "User Research & Feedback Loops",
+      "Voice UX & Flow Design",
       "Stakeholder Management",
     ],
   },
   {
-    title: "Data & Analytics",
+    title: "AI & ML",
     skills: [
-      "SQL & Data Pipelines",
-      "Python (Pandas / NumPy)",
-      "Customer Segmentation (K-Means)",
-      "Time-Series & Revenue Views",
+      "LLMs & RAG Architectures",
+      "Prompting & Evaluation",
+      "AI Agents & LangChain",
+      "Vector DBs & Embeddings",
+      "PyTorch & TensorFlow",
+      "scikit-learn & XGBoost",
+    ],
+  },
+  {
+    title: "DATA & ANALYTICS",
+    skills: [
+      "Python & SQL",
+      "Pandas & NumPy",
       "Power BI & Dashboards",
+      "Customer Segmentation (K-Means)",
+      "Time-Series Forecasting",
       "Behavioural Regime Analysis",
     ],
   },
   {
-    title: "Engineering & Cloud",
+    title: "ENGINEERING & CLOUD",
     skills: [
-      "TypeScript & JavaScript",
-      "Node.js & React",
-      "Azure & Google Cloud",
+      "REST APIs & Architecture",
+      "TypeScript, Node & React",
+      "AWS, Azure & Google Cloud",
       "Docker & Containerization",
+      "CI/CD & Git Pipelines",
       "Stripe Payments Integration",
-      "Git & CI/CD Pipelines",
     ],
   },
 ];
@@ -119,7 +119,7 @@ export function Technology() {
           </div>
           <FadeUp delay={0.08}>
             <p className="max-w-sm text-[0.95rem] text-ink-soft">
-              Across AI, product, data, and engineering, these are the core capabilities and toolsets applied across real-world enterprise and commercial systems.
+              Product thinking first, backed by AI depth, data analytics, and software engineering foundations.
             </p>
           </FadeUp>
         </div>
@@ -127,11 +127,16 @@ export function Technology() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {TOOLKIT_CATEGORIES.map((cat, idx) => (
             <FadeUp key={cat.title} delay={0.05 * idx}>
-              <div className="h-full rounded-sm border border-hairline/70 bg-paper-deep/20 p-6 flex flex-col justify-between hover:border-hairline transition-colors">
+              <div className={cn(
+                "h-full rounded-sm border p-6 flex flex-col justify-between transition-colors",
+                idx === 0 
+                  ? "border-forest/40 bg-forest/[0.03] shadow-xs" 
+                  : "border-hairline/70 bg-paper-deep/20 hover:border-hairline"
+              )}>
                 <div>
                   <div className="flex items-center gap-2 mb-4">
-                    <span className="h-1.5 w-1.5 rounded-full bg-forest" />
-                    <h3 className="eyebrow text-ink tracking-[0.12em]">{cat.title}</h3>
+                    <span className={cn("h-1.5 w-1.5 rounded-full", idx === 0 ? "bg-forest" : "bg-ink-faint")} />
+                    <h3 className={cn("eyebrow tracking-[0.12em]", idx === 0 ? "text-forest font-semibold" : "text-ink")}>{cat.title}</h3>
                   </div>
                   <ul className="space-y-2.5">
                     {cat.skills.map((skill) => (
@@ -150,7 +155,6 @@ export function Technology() {
 
       <motion.div style={{ y: drift }} className="mt-14 md:mt-16">
         <MarqueeRow items={TECH_ROW_ONE} direction="left" duration={52} />
-        <MarqueeRow items={TECH_ROW_TWO} direction="right" duration={58} />
       </motion.div>
     </section>
   );

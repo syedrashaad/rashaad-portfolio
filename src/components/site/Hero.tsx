@@ -115,13 +115,13 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.35, duration: 0.9, ease: EASE }}
-            className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 text-[0.78rem] tracking-[0.16em] uppercase text-ink-faint"
+            className="mt-7 flex flex-wrap items-center gap-x-3.5 gap-y-3 text-[0.8rem] tracking-[0.16em] uppercase"
           >
-            <span>PRODUCT</span>
+            <span className="font-semibold text-forest px-3 py-1 rounded-full bg-forest/10 border border-forest/25 shadow-xs">PRODUCT</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
-            <span>AI</span>
+            <span className="text-ink-soft font-medium">AI</span>
             <span className="h-1 w-1 rounded-full bg-forest/70" />
-            <span>Technology</span>
+            <span className="text-ink-faint">Technology</span>
           </motion.div>
 
           <motion.div
@@ -189,11 +189,11 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.9, duration: 1 }}
-        className="shell relative z-10 mt-2 flex items-center justify-between text-[0.7rem] tracking-[0.2em] uppercase text-ink-faint"
+        className="shell relative z-10 mt-2 flex items-center justify-between text-[0.72rem] tracking-[0.2em] uppercase text-ink-faint"
       >
         <span>Scroll</span>
         <span className="h-px flex-1 mx-6 bg-hairline" />
-        <span>PRODUCT · AI · TECHNOLOGY</span>
+        <span><strong className="text-forest font-semibold">PRODUCT</strong> · AI · TECHNOLOGY</span>
       </motion.div>
     </section>
   );

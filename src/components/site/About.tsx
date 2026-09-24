@@ -61,15 +61,12 @@ export function About() {
             </div>
           </FadeUp>
           <MaskedLines
-            className="display text-[clamp(2.1rem,5vw,3.8rem)]"
+            className="display text-[clamp(2.1rem,4.8vw,3.6rem)]"
             lines={[
-              <span key="a">Engineer by</span>,
-              <span key="b">foundation.</span>,
-              <span key="c" className="text-ink-faint">
-                Product builder
-              </span>,
-              <span key="d" className="text-ink-faint">
-                by <span className="font-editorial italic font-normal text-forest">evolution.</span>
+              <span key="a">Engineer by foundation.</span>,
+              <span key="b" className="text-ink-faint">
+                Product builder{" "}
+                <span className="font-editorial italic font-normal text-forest">by evolution.</span>
               </span>,
             ]}
           />
