@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageSquare, X, Send, Sparkles, User, Bot, ArrowUpRight, FolderKanban } from "lucide-react";
+import { X, Send, Sparkles, User, Bot, ArrowUpRight, FolderKanban, ArrowDown } from "lucide-react";
 
 import { useCaseStudy } from "./CaseStudy";
 import { CONTACT } from "@/lib/brand";
@@ -10,6 +10,7 @@ type MessageLink = {
   href?: string;
   external?: boolean;
   caseStudyId?: string;
+  scrollToId?: string;
 };
 
 type Message = {
@@ -20,81 +21,168 @@ type Message = {
 };
 
 const SUGGESTIONS = [
-  "What did Rashaad do at Harrods?",
-  "Tell me about his eCommerce experience",
-  "What are his AI metrics?",
-  "Tell me about Magpie AI",
+  "What does Rashaad do?",
+  "Tell me about Harrods",
+  "Does he have eCommerce experience?",
   "How can I contact him?",
 ];
 
-function generateResponse(query: string): { text: string; links?: MessageLink[] } {
-  const q = query.toLowerCase();
+function getResponse(
+  query: string,
+  lastTopic: string | null,
+): { text: string; topic: string; links?: MessageLink[] } {
+  const q = query.toLowerCase().trim();
 
+  // 1. Follow-up role questions based on conversational memory
+  if (lastTopic === "harrods" && (q.includes("role") || q.includes("what did he do") || q.includes("position"))) {
+    return {
+      text: "He was a Student Consultant, helping frame the commercial problem, analyze the data and shape the forecasting approach.",
+      topic: "harrods",
+      links: [{ label: "View Harrods", caseStudyId: "harrods" }],
+    };
+  }
+
+  if (lastTopic === "magpie" && (q.includes("role") || q.includes("what did he do") || q.includes("position"))) {
+    return {
+      text: "He's a Product Manager Associate, focusing on user feedback, voice UX friction, roleplay scenario testing, and roadmap decisions.",
+      topic: "magpie",
+      links: [{ label: "View Magpie", caseStudyId: "magpie" }],
+    };
+  }
+
+  if (lastTopic === "perficient" && (q.includes("role") || q.includes("what did he do") || q.includes("position"))) {
+    return {
+      text: "He was an Associate Technical Consultant sitting between business requirements and engineering across GenAI, knowledge retrieval, Document AI, and eCommerce.",
+      topic: "perficient",
+      links: [{ label: "View Perficient", caseStudyId: "perficient" }],
+    };
+  }
+
+  // 2. Direct intent matches
+
+  // Contact / Reach / Hire
+  if (q.includes("contact") || q.includes("email") || q.includes("reach") || q.includes("hire") || q.includes("linkedin")) {
+    return {
+      text: "Email or LinkedIn are the easiest ways to reach him.",
+      topic: "contact",
+      links: [
+        { label: "Email", href: `mailto:${CONTACT.email}` },
+        { label: "LinkedIn", href: CONTACT.linkedin, external: true },
+        { label: "Download CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
+      ],
+    };
+  }
+
+  // CV Download
+  if (q.includes("cv") || q.includes("resume") || q.includes("download")) {
+    return {
+      text: "Sure, you can grab his CV directly below.",
+      topic: "contact",
+      links: [{ label: "Download CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true }],
+    };
+  }
+
+  // Where does he work now / Magpie AI
+  if (q.includes("where does he work") || q.includes("current role") || q.includes("magpie") || q.includes("now")) {
+    return {
+      text: "He's currently working in AI product at Talk to Magpie AI as Product Manager Associate in London.",
+      topic: "magpie",
+      links: [{ label: "View Magpie", caseStudyId: "magpie" }],
+    };
+  }
+
+  // Harrods
   if (q.includes("harrods") || q.includes("239") || q.includes("13m")) {
     return {
-      text: "At Harrods (London LAB), Rashaad narrowed a broad commercial challenge into an AI forecasting opportunity. He analyzed 13M+ transactions using K-Means clustering and category demand forecasting, delivering a £239M 2026 revenue view for executive leadership.",
-      links: [{ label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" }],
+      text: "He worked on an AI forecasting problem through London LAB, using 13M+ transactions to explore revenue forecasting and customer segmentation.",
+      topic: "harrods",
+      links: [{ label: "View Harrods", caseStudyId: "harrods" }],
     };
   }
 
-  if (q.includes("northshore") || q.includes("ecommerce") || q.includes("stripe") || q.includes("b2b")) {
+  // eCommerce / NorthShore Care Supply
+  if (q.includes("ecommerce") || q.includes("e-commerce") || q.includes("northshore") || q.includes("stripe") || q.includes("b2b")) {
     return {
-      text: "For NorthShore Care Supply, Rashaad led the B2B eCommerce experience reengineering across product discovery, cart, checkout, and Stripe payment integration in direct collaboration with engineering teams.",
-      links: [{ label: "VIEW NORTHSHORE CASE STUDY", caseStudyId: "northshore" }],
+      text: "Yes. At Perficient, he worked on NorthShore Care Supply, a B2B eCommerce experience spanning product discovery, checkout and payments.",
+      topic: "northshore",
+      links: [{ label: "View NorthShore", caseStudyId: "northshore" }],
     };
   }
 
-  if (q.includes("magpie")) {
+  // AI Experience / RAG
+  if (q.includes("ai experience") || q.includes("ai work") || q.includes("rag") || q.includes("genai") || q.includes("llm")) {
     return {
-      text: "At Talk to Magpie AI (Sep 2026 -> Present), Rashaad works as Product Manager Associate. He conducts direct user research, analyzes conversation friction in AI roleplay & voice experiences, and turns customer feedback into product and roadmap decisions.",
-      links: [{ label: "VIEW MAGPIE CASE STUDY", caseStudyId: "magpie" }],
-    };
-  }
-
-  if (q.includes("metric") || q.includes("impact") || q.includes("perficient") || q.includes("genai") || q.includes("10k") || q.includes("aristocrat")) {
-    return {
-      text: "Rashaad's verified production metrics include RAG pipelines serving 10K+ daily queries at <2s latency & 99.9% uptime, 80%+ manual data entry cut (1,200+ hrs/mo saved for Aristocrat), and 13M+ Harrods transactions (£239M revenue view).",
+      text: "His AI work ranges from enterprise GenAI and RAG to AI product experiences and document automation.",
+      topic: "ai",
       links: [
-        { label: "VIEW ENTERPRISE AI CASE STUDY", caseStudyId: "perficient" },
-        { label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" },
+        { label: "Magpie AI", caseStudyId: "magpie" },
+        { label: "Enterprise AI", caseStudyId: "perficient" },
       ],
     };
   }
 
-  if (q.includes("pm") || q.includes("product manager") || q.includes("kind of") || q.includes("background")) {
+  // Metrics / Numbers
+  if (q.includes("metric") || q.includes("number") || q.includes("impact") || q.includes("outcome")) {
     return {
-      text: "Rashaad is a Product Manager with strong AI depth and software engineering foundations. He bridges product strategy, user feedback, data analytics, and technical execution: having built AI platforms, commercial forecasting models, and B2B eCommerce systems.",
+      text: "Some of the larger ones are 13M+ transactions analysed at Harrods and 10K+ daily queries on an enterprise GenAI platform.",
+      topic: "metrics",
       links: [
-        { label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
-        { label: "VIEW MAGPIE CASE STUDY", caseStudyId: "magpie" },
+        { label: "Harrods", caseStudyId: "harrods" },
+        { label: "Enterprise AI", caseStudyId: "perficient" },
       ],
     };
   }
 
-  if (q.includes("contact") || q.includes("email") || q.includes("hire") || q.includes("reach") || q.includes("linkedin")) {
+  // Perficient / Clients
+  if (q.includes("perficient") || q.includes("client") || q.includes("caterpillar") || q.includes("aristocrat")) {
     return {
-      text: "You can reach Rashaad by email or LinkedIn. He is actively open to Product Manager, AI Product, and Product Strategy roles in London & Remote.",
+      text: "At Perficient, he spent 16 months building AI, ML, automation and B2B eCommerce products across client contexts including Core GenAI, Caterpillar, Aristocrat, and NorthShore Care Supply.",
+      topic: "perficient",
+      links: [{ label: "View Perficient", caseStudyId: "perficient" }],
+    };
+  }
+
+  // Technical Background
+  if (q.includes("technical") || q.includes("engineering") || q.includes("code") || q.includes("developer") || q.includes("stack")) {
+    return {
+      text: "Yep. His background is a mix of product, AI and engineering. He has a B.Tech in Computer Science from VIT and a Master's from London Business School.",
+      topic: "general",
       links: [
-        { label: "EMAIL", href: `mailto:${CONTACT.email}` },
-        { label: "LINKEDIN", href: CONTACT.linkedin, external: true },
-        { label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
+        { label: "View Toolkit", scrollToId: "stack" },
+        { label: "Download CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
       ],
     };
   }
 
-  if (q.includes("education") || q.includes("lbs") || q.includes("degree")) {
+  // What makes his background different
+  if (q.includes("different") || q.includes("unique") || q.includes("stand out") || q.includes("why hire")) {
     return {
-      text: "Rashaad holds a Master's in Analytics and Management from London Business School (2025 – 2026) and a B.Tech in Computer Science & Engineering from VIT University (2019 – 2023).",
-      links: [{ label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true }],
+      text: "He combines software engineering foundations and ML research with commercial product framing from LBS and hands-on AI product management.",
+      topic: "general",
+      links: [{ label: "See selected work", scrollToId: "work" }],
     };
   }
 
+  // What does Rashaad do / General intro
+  if (q.includes("what does rashaad do") || q.includes("who is rashaad") || q.includes("overview") || q.includes("about")) {
+    return {
+      text: "He's an AI Product Manager working across product discovery, AI experiences and data-driven products. He's currently at Magpie AI.",
+      topic: "general",
+      links: [
+        { label: "Magpie", caseStudyId: "magpie" },
+        { label: "Harrods", caseStudyId: "harrods" },
+        { label: "Perficient", caseStudyId: "perficient" },
+      ],
+    };
+  }
+
+  // Unknown / Out of scope
   return {
-    text: "Rashaad Syed is an AI Product Manager based in London. He works across AI roleplay products at Magpie AI, revenue forecasting at Harrods (£239M revenue view), enterprise GenAI systems at Perficient (10K+ daily queries), and B2B eCommerce at NorthShore Care Supply.",
+    text: "I don't have that detail. You can ask Rashaad directly if you'd like.",
+    topic: "general",
     links: [
-      { label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" },
-      { label: "VIEW NORTHSHORE CASE STUDY", caseStudyId: "northshore" },
-      { label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
+      { label: "Email Rashaad", href: `mailto:${CONTACT.email}` },
+      { label: "LinkedIn", href: CONTACT.linkedin, external: true },
     ],
   };
 }
@@ -103,14 +191,16 @@ export function AskRashaadChat() {
   const { open: openCaseStudy } = useCaseStudy();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [lastTopic, setLastTopic] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "init",
       sender: "assistant",
-      text: "Hi! I'm Rashaad's AI Assistant. Ask me anything about his product decision-making, AI projects, metrics, or background.",
+      text: "Hi! I can help you explore Rashaad's product work, AI experience, and metrics.",
       links: [
-        { label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" },
-        { label: "VIEW NORTHSHORE CASE STUDY", caseStudyId: "northshore" },
+        { label: "Magpie", caseStudyId: "magpie" },
+        { label: "Harrods", caseStudyId: "harrods" },
+        { label: "Perficient", caseStudyId: "perficient" },
       ],
     },
   ]);
@@ -131,7 +221,8 @@ export function AskRashaadChat() {
     setInput("");
 
     setTimeout(() => {
-      const resp = generateResponse(userText);
+      const resp = getResponse(userText, lastTopic);
+      setLastTopic(resp.topic);
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
         sender: "assistant",
@@ -139,13 +230,17 @@ export function AskRashaadChat() {
         links: resp.links,
       };
       setMessages((prev) => [...prev, botMsg]);
-    }, 350);
+    }, 300);
   };
 
   const handleLinkClick = (l: MessageLink) => {
     if (l.caseStudyId) {
       setOpen(false);
       openCaseStudy(l.caseStudyId);
+    } else if (l.scrollToId) {
+      setOpen(false);
+      const el = document.getElementById(l.scrollToId);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -184,8 +279,8 @@ export function AskRashaadChat() {
                   <Sparkles className="h-3.5 w-3.5" />
                 </span>
                 <div>
-                  <h4 className="text-xs font-semibold tracking-wide text-ink">Ask Rashaad AI</h4>
-                  <p className="text-[0.68rem] text-ink-faint">Navigation & factual insights</p>
+                  <h4 className="text-xs font-semibold tracking-wide text-ink uppercase font-mono">Ask Rashaad</h4>
+                  <p className="text-[0.68rem] text-ink-faint">Curious about my work?</p>
                 </div>
               </div>
               <button
@@ -227,14 +322,14 @@ export function AskRashaadChat() {
                     {m.links && (
                       <div className="mt-2.5 flex flex-wrap gap-1.5 pt-2 border-t border-hairline/60">
                         {m.links.map((l) =>
-                          l.caseStudyId ? (
+                          l.caseStudyId || l.scrollToId ? (
                             <button
                               key={l.label}
                               type="button"
                               onClick={() => handleLinkClick(l)}
                               className="inline-flex items-center gap-1.5 rounded bg-forest/10 px-2.5 py-1 text-[0.7rem] font-semibold text-forest hover:bg-forest hover:text-paper transition-colors"
                             >
-                              <FolderKanban className="h-3 w-3" />
+                              {l.caseStudyId ? <FolderKanban className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
                               {l.label}
                             </button>
                           ) : (
@@ -285,7 +380,7 @@ export function AskRashaadChat() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about product, AI, metrics..."
+                placeholder="Ask a question..."
                 className="flex-1 rounded-sm bg-paper-deep/30 px-3 py-1.5 text-xs text-ink placeholder:text-ink-faint focus:outline-none focus:ring-1 focus:ring-forest"
               />
               <button

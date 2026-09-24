@@ -1,29 +1,21 @@
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, Layers } from "lucide-react";
 
 import { CompanyMark } from "./BrandMark";
 import { useCaseStudy, DecisionCallout } from "./CaseStudy";
 import { FadeUp, MaskedLines } from "./Reveal";
 import { WORKS, CASE_STUDIES } from "@/lib/portfolio-data";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 export function SelectedWork() {
   const { open } = useCaseStudy();
 
   const magpieWork = WORKS.find((w) => w.id === "magpie")!;
   const harrodsWork = WORKS.find((w) => w.id === "harrods")!;
-  const enterpriseWork = WORKS.find((w) => w.id === "perficient")!;
-  const northshoreWork = WORKS.find((w) => w.id === "northshore")!;
+  const perficientWork = WORKS.find((w) => w.id === "perficient")!;
 
   const magpieStudy = CASE_STUDIES.magpie;
   const harrodsStudy = CASE_STUDIES.harrods;
-  const enterpriseStudy = CASE_STUDIES.perficient;
-  const northshoreStudy = CASE_STUDIES.northshore;
-  
-  const secondaryProjects = WORKS.filter(
-    (w) => !["magpie", "harrods", "perficient", "northshore"].includes(w.id)
-  );
+  const perficientStudy = CASE_STUDIES.perficient;
 
   return (
     <section id="work" className="shell relative pb-16 pt-12 md:pb-24 md:pt-16">
@@ -46,8 +38,8 @@ export function SelectedWork() {
         />
       </div>
 
-      {/* Featured Projects Grid - Top 4 receive primary visual treatment */}
-      <div className="mt-12 flex flex-col gap-10">
+      {/* 3 Substantial Case Studies */}
+      <div className="mt-12 flex flex-col gap-12">
         
         {/* 01: Talk to Magpie AI */}
         <FadeUp>
@@ -149,133 +141,105 @@ export function SelectedWork() {
           </article>
         </FadeUp>
 
-        {/* 03: Enterprise AI & Automation (Perficient) */}
+        {/* 03: Perficient (One Unified Enterprise Case Study with 4 Client Context Chapters) */}
         <FadeUp>
           <article className="group relative rounded-sm border border-hairline/80 bg-paper p-8 transition-colors duration-500 hover:border-forest/40 md:p-11">
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+            <div className="flex items-center justify-between border-b border-hairline/60 pb-5">
               <div>
                 <div className="flex items-center gap-3 text-xs tracking-wider uppercase text-forest font-mono">
                   <span>03</span>
                   <span>·</span>
-                  <span>{enterpriseWork.category}</span>
+                  <span>{perficientWork.category}</span>
                   <span>·</span>
-                  <span className="text-ink-faint">{enterpriseWork.date}</span>
+                  <span className="text-ink-faint">{perficientWork.date}</span>
                 </div>
-                <h3 className="mt-3 text-[clamp(1.8rem,3.8vw,2.8rem)] font-normal tracking-[-0.03em]">
+                <h3 className="mt-2 text-[clamp(1.8rem,3.8vw,2.8rem)] font-normal tracking-[-0.03em]">
                   <CompanyMark mark="Perficient" hex="C8102E" className="!text-ink" />
                   <span className="text-ink-soft text-lg font-normal ml-3">· Enterprise AI & Automation</span>
                 </h3>
-                <p className="mt-2 text-[0.88rem] text-ink-soft">{enterpriseWork.role}</p>
-                <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-soft">{enterpriseStudy.situation}</p>
-
-                <div className="mt-6 grid grid-cols-3 gap-3">
-                  <div className="rounded-sm bg-paper-deep/30 p-3 border border-hairline/50 text-center">
-                    <div className="display text-xl text-forest font-semibold">10K+</div>
-                    <div className="eyebrow mt-0.5 text-[0.65rem]">daily RAG queries</div>
-                  </div>
-                  <div className="rounded-sm bg-paper-deep/30 p-3 border border-hairline/50 text-center">
-                    <div className="display text-xl text-forest font-semibold">&lt;2s</div>
-                    <div className="eyebrow mt-0.5 text-[0.65rem]">response latency</div>
-                  </div>
-                  <div className="rounded-sm bg-paper-deep/30 p-3 border border-hairline/50 text-center">
-                    <div className="display text-xl text-forest font-semibold">99.9%</div>
-                    <div className="eyebrow mt-0.5 text-[0.65rem]">system uptime</div>
-                  </div>
-                </div>
+                <p className="mt-1 text-[0.88rem] text-ink-soft">{perficientWork.role}</p>
               </div>
+              <button
+                type="button"
+                onClick={() => open("perficient")}
+                className="hidden md:inline-flex items-center gap-2 text-[0.8rem] tracking-[0.1em] uppercase text-forest font-medium transition-colors hover:text-ink"
+              >
+                View case study →
+              </button>
+            </div>
 
-              <div className="flex flex-col justify-between gap-6 border-t border-hairline/60 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+            <p className="mt-6 text-[1.05rem] leading-relaxed text-ink-soft max-w-3xl">
+              Sixteen months working across AI, ML, automation and B2B digital products for enterprise clients. Sitting between business requirements and technical implementation.
+            </p>
+
+            {/* 4 Client Context Chapters inside Perficient */}
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {/* Chapter 1: Core GenAI */}
+              <div className="rounded-sm border border-hairline/60 bg-paper-deep/20 p-5 flex flex-col justify-between">
                 <div>
-                  <DecisionCallout statement={enterpriseStudy.decision.statement} why={enterpriseStudy.decision.why} />
+                  <div className="text-[0.7rem] uppercase font-mono tracking-wider text-forest mb-1">Chapter 01</div>
+                  <h4 className="font-semibold text-ink text-base">Core GenAI Platform</h4>
+                  <p className="mt-2 text-xs text-ink-soft leading-relaxed">RAG pipelines serving LLM assistants under heavy load.</p>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={() => open("perficient")}
-                  className="inline-flex items-center gap-2 text-[0.8rem] tracking-[0.1em] uppercase text-forest font-medium transition-colors hover:text-ink"
-                >
-                  View full case study →
-                </button>
+                <div className="mt-4 pt-3 border-t border-hairline/50 flex flex-wrap gap-2 text-[0.72rem] font-semibold text-forest">
+                  <span>10K+ queries/day</span>
+                  <span>·</span>
+                  <span>&lt;2s latency</span>
+                  <span>·</span>
+                  <span>99.9% uptime</span>
+                </div>
               </div>
+
+              {/* Chapter 2: Caterpillar */}
+              <div className="rounded-sm border border-hairline/60 bg-paper-deep/20 p-5 flex flex-col justify-between">
+                <div>
+                  <div className="text-[0.7rem] uppercase font-mono tracking-wider text-forest mb-1">Chapter 02</div>
+                  <h4 className="font-semibold text-ink text-base">Caterpillar</h4>
+                  <p className="mt-2 text-xs text-ink-soft leading-relaxed">Enterprise knowledge retrieval searchable in workflow.</p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline/50 text-[0.72rem] font-medium text-ink-soft">
+                  Grounded documentation retrieval
+                </div>
+              </div>
+
+              {/* Chapter 3: Aristocrat */}
+              <div className="rounded-sm border border-hairline/60 bg-paper-deep/20 p-5 flex flex-col justify-between">
+                <div>
+                  <div className="text-[0.7rem] uppercase font-mono tracking-wider text-forest mb-1">Chapter 03</div>
+                  <h4 className="font-semibold text-ink text-base">Aristocrat</h4>
+                  <p className="mt-2 text-xs text-ink-soft leading-relaxed">Google Document AI invoice data extraction & automation.</p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline/50 text-[0.72rem] font-semibold text-forest">
+                  80%+ manual entry cut · 1,200+ hrs/mo
+                </div>
+              </div>
+
+              {/* Chapter 4: NorthShore Care Supply */}
+              <div className="rounded-sm border border-hairline/60 bg-paper-deep/20 p-5 flex flex-col justify-between">
+                <div>
+                  <div className="text-[0.7rem] uppercase font-mono tracking-wider text-forest mb-1">Chapter 04</div>
+                  <h4 className="font-semibold text-ink text-base">NorthShore Care Supply</h4>
+                  <p className="mt-2 text-xs text-ink-soft leading-relaxed">B2B eCommerce discovery, purchasing, checkout & Stripe.</p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-hairline/50 text-[0.72rem] font-medium text-ink-soft">
+                  Discovery → Checkout → Payments
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-6 border-t border-hairline/60 flex items-center justify-between">
+              <DecisionCallout statement={perficientStudy.decision.statement} why={perficientStudy.decision.why} />
+              <button
+                type="button"
+                onClick={() => open("perficient")}
+                className="md:hidden inline-flex items-center gap-2 text-[0.8rem] tracking-[0.1em] uppercase text-forest font-medium transition-colors hover:text-ink mt-4"
+              >
+                View full case study →
+              </button>
             </div>
           </article>
         </FadeUp>
 
-        {/* 04: NorthShore Care Supply (Major Standalone Product Feature) */}
-        <FadeUp>
-          <article className="group relative rounded-sm border border-forest/35 bg-paper p-8 transition-colors duration-500 hover:border-forest md:p-11 shadow-xs">
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
-              <div>
-                <div className="flex items-center gap-3 text-xs tracking-wider uppercase text-forest font-mono">
-                  <span>04</span>
-                  <span>·</span>
-                  <span>{northshoreWork.category}</span>
-                  <span>·</span>
-                  <span className="text-ink-faint">{northshoreWork.date}</span>
-                </div>
-                <h3 className="mt-3 text-[clamp(1.8rem,3.8vw,2.8rem)] font-normal tracking-[-0.03em]">
-                  <CompanyMark mark="NorthShore Care" hex="2F6DA8" className="!text-ink" />
-                  <span className="text-forest text-xs font-semibold uppercase tracking-wider ml-3 bg-forest/10 px-2.5 py-1 rounded-full border border-forest/20">B2B eCommerce Product</span>
-                </h3>
-                <p className="mt-2 text-[0.88rem] text-ink-soft">{northshoreWork.role}</p>
-                <p className="mt-5 text-[1.02rem] leading-relaxed text-ink-soft">{northshoreStudy.situation}</p>
-
-                <div className="mt-6 grid grid-cols-2 gap-2 text-center text-xs">
-                  <div className="rounded-sm bg-paper-deep/30 p-2.5 border border-hairline/50 font-medium">Product Discovery</div>
-                  <div className="rounded-sm bg-paper-deep/30 p-2.5 border border-hairline/50 font-medium">Purchasing Workflow</div>
-                  <div className="rounded-sm bg-paper-deep/30 p-2.5 border border-hairline/50 font-medium">Checkout Experience</div>
-                  <div className="rounded-sm bg-forest/10 border border-forest/30 p-2.5 font-semibold text-forest">Stripe Payments</div>
-                </div>
-              </div>
-
-              <div className="flex flex-col justify-between gap-6 border-t border-hairline/60 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-                <div>
-                  <DecisionCallout statement={northshoreStudy.decision.statement} why={northshoreStudy.decision.why} />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => open("northshore")}
-                  className="inline-flex items-center gap-2 text-[0.8rem] tracking-[0.1em] uppercase text-forest font-medium transition-colors hover:text-ink"
-                >
-                  View full case study →
-                </button>
-              </div>
-            </div>
-          </article>
-        </FadeUp>
-
-      </div>
-
-      {/* Secondary Projects Grid */}
-      <div className="mt-10 grid gap-6 sm:grid-cols-3">
-        {secondaryProjects.map((p) => (
-          <FadeUp key={p.id}>
-            <button
-              type="button"
-              onClick={() => open(p.id)}
-              className="group h-full w-full rounded-sm border border-hairline/70 bg-paper p-6 text-left transition-colors duration-300 hover:border-forest/40 hover:bg-paper-deep/20 flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between text-xs font-mono text-ink-faint">
-                  <span>{p.index}</span>
-                  <span>{p.category}</span>
-                </div>
-                <h4 className="mt-3 text-lg font-medium text-ink group-hover:text-forest transition-colors">
-                  {p.title}
-                </h4>
-                <p className="mt-2 text-[0.85rem] text-ink-soft line-clamp-2">
-                  {p.lede}
-                </p>
-              </div>
-
-              <div className="mt-6 flex items-center justify-between border-t border-hairline/50 pt-4 text-xs text-ink-faint group-hover:text-forest font-medium">
-                <span>View case study</span>
-                <span>→</span>
-              </div>
-            </button>
-          </FadeUp>
-        ))}
       </div>
     </section>
   );
