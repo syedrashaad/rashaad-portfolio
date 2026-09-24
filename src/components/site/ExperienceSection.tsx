@@ -87,7 +87,7 @@ export function ExperienceSection() {
         <MaskedLines
           className="display text-[clamp(1.9rem,4.4vw,3.1rem)]"
           lines={[
-            <span key="a">Research, engineering,</span>,
+            <span key="a">Research, engineering,&nbsp;</span>,
             <span key="b" className="text-ink-faint">
               then <span className="font-editorial italic font-normal text-forest">product.</span>
             </span>,

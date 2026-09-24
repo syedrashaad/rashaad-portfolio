@@ -26,7 +26,12 @@ function EmphasisParagraph({ text }: { text: string }) {
       {words.map((word, i) => {
         const start = i / words.length;
         const end = start + 1 / words.length;
-        return <EmphasisWord key={i} progress={scrollYProgress} range={[start, end]} word={word} />;
+        return (
+          <span key={i} className="mr-[0.3em] inline-block">
+            <EmphasisWord progress={scrollYProgress} range={[start, end]} word={word} />
+            {" "}
+          </span>
+        );
       })}
     </p>
   );
@@ -42,11 +47,7 @@ function EmphasisWord({
   word: string;
 }) {
   const opacity = useTransform(progress, range, [0.25, 1]);
-  return (
-    <span className="mr-[0.3em] inline-block">
-      <motion.span style={{ opacity }}>{word}</motion.span>
-    </span>
-  );
+  return <motion.span style={{ opacity }}>{word}</motion.span>;
 }
 
 export function About() {
@@ -63,7 +64,7 @@ export function About() {
           <MaskedLines
             className="display text-[clamp(2.1rem,4.8vw,3.6rem)]"
             lines={[
-              <span key="a">Engineer by foundation.</span>,
+              <span key="a">Engineer by foundation.&nbsp;</span>,
               <span key="b" className="text-ink-faint">
                 Product builder{" "}
                 <span className="font-editorial italic font-normal text-forest">by evolution.</span>

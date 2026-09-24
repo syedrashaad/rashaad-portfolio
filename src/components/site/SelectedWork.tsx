@@ -29,7 +29,7 @@ export function SelectedWork() {
         <MaskedLines
           className="display text-[clamp(2.1rem,4.6vw,3.4rem)]"
           lines={[
-            <span key="a">Product thinking.</span>,
+            <span key="a">Product thinking.&nbsp;</span>,
             <span key="b" className="text-ink-faint">
               AI depth &{" "}
               <span className="font-editorial italic font-normal text-forest">measurable impact.</span>

@@ -34,7 +34,7 @@ export function Contact() {
       <MaskedLines
         className="display text-[clamp(2.4rem,8vw,6.6rem)]"
         lines={[
-          <span key="1">Let's build something</span>,
+          <span key="1">Let's build something&nbsp;</span>,
           <span key="2">
             worth <span className="font-editorial italic font-normal text-forest">using.</span>
           </span>,

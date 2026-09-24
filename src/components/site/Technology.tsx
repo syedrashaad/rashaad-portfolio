@@ -107,7 +107,7 @@ export function Technology() {
             <MaskedLines
               className="display text-[clamp(1.7rem,3.6vw,2.6rem)]"
               lines={[
-                <span key="a">The tools change.</span>,
+                <span key="a">The tools change.&nbsp;</span>,
                 <span key="b" className="text-ink-faint">
                   The way I work{" "}
                   <span className="font-editorial italic font-normal text-forest">doesn't.</span>
