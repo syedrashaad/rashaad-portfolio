@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { X } from "lucide-react";
+import { X, ArrowRight, Lightbulb, Scale } from "lucide-react";
 
 import { TECH_BY_NAME } from "@/lib/brand";
 import { CASE_STUDIES } from "@/lib/portfolio-data";
@@ -46,8 +46,23 @@ export function CaseStudyProvider({ children }: { children: ReactNode }) {
   return (
     <CaseStudyContext.Provider value={value}>
       {children}
-      <CaseStudySheet id={activeId} onClose={close} />
+      <CaseStudySheet id={activeId} onClose={close} onNavigate={open} />
     </CaseStudyContext.Provider>
+  );
+}
+
+export function DecisionCallout({ statement, why }: { statement: string; why: string }) {
+  return (
+    <div className="rounded-sm border-l-2 border-forest bg-forest/[0.04] p-6 shadow-xs my-2">
+      <div className="eyebrow text-forest mb-2 font-mono tracking-widest uppercase">The Decision</div>
+      <blockquote className="display text-[clamp(1.1rem,2.2vw,1.4rem)] text-ink leading-snug font-normal">
+        "{statement}"
+      </blockquote>
+      <div className="mt-3.5 pt-3 border-t border-forest/15 flex items-start gap-2.5 text-[0.88rem] text-ink-soft">
+        <span className="font-semibold text-forest uppercase tracking-wider text-[0.72rem] shrink-0 mt-0.5">WHY</span>
+        <span>{why}</span>
+      </div>
+    </div>
   );
 }
 
@@ -58,7 +73,7 @@ function ToolChip({ name }: { name: string }) {
       style={
         brand ? ({ ["--brand" as string]: `#${brand.hex}` } as React.CSSProperties) : undefined
       }
-      className="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1.5 text-[0.78rem] text-ink-soft"
+      className="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-1.5 text-[0.78rem] text-ink-soft bg-paper"
     >
       {brand?.path ? (
         <svg viewBox="0 0 24 24" aria-hidden className="h-3.5 w-3.5 fill-[var(--brand)]">
@@ -72,8 +87,17 @@ function ToolChip({ name }: { name: string }) {
   );
 }
 
-function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => void }) {
+function CaseStudySheet({
+  id,
+  onClose,
+  onNavigate,
+}: {
+  id: string | null;
+  onClose: () => void;
+  onNavigate: (nextId: string) => void;
+}) {
   const study = id ? CASE_STUDIES[id] : null;
+  const nextStudy = study?.nextId ? CASE_STUDIES[study.nextId] : null;
 
   return (
     <AnimatePresence>
@@ -97,10 +121,10 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
             exit={{ x: "100%" }}
             transition={{ duration: 0.55, ease: EASE }}
             data-lenis-prevent="true"
-            className="relative z-10 flex h-[100dvh] max-h-[100dvh] w-full flex-col bg-paper md:w-[min(46rem,92vw)] md:shadow-[-40px_0_120px_-60px_rgba(20,20,18,0.5)]"
+            className="relative z-10 flex h-[100dvh] max-h-[100dvh] w-full flex-col bg-paper md:w-[min(48rem,94vw)] md:shadow-[-40px_0_120px_-60px_rgba(20,20,18,0.5)]"
           >
             <div className="sticky top-0 z-20 flex shrink-0 items-center justify-between gap-4 border-b border-hairline bg-paper/90 px-6 py-4 backdrop-blur-xl md:px-12">
-              <span className="eyebrow">{study.context}</span>
+              <span className="eyebrow text-forest">{study.context}</span>
               <button
                 type="button"
                 onClick={onClose}
@@ -122,7 +146,7 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.14, duration: 0.7, ease: EASE }}
-                className="display text-[clamp(2.4rem,7vw,4.2rem)]"
+                className="display text-[clamp(2.4rem,6.5vw,4rem)]"
               >
                 {study.title}
               </motion.h2>
@@ -131,9 +155,10 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22, duration: 0.7, ease: EASE }}
-                className="mt-5 flex flex-wrap gap-x-8 gap-y-2 text-[0.82rem] text-ink-soft"
+                className="mt-4 flex flex-wrap gap-x-8 gap-y-2 text-[0.85rem] text-ink-soft font-medium"
               >
                 <span>{study.role}</span>
+                <span className="text-ink-faint">·</span>
                 <span className="text-ink-faint">{study.year}</span>
               </motion.div>
 
@@ -141,32 +166,53 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.8, ease: EASE }}
-                className="mt-12 flex flex-col gap-12"
+                className="mt-10 flex flex-col gap-10"
               >
-                <div>
-                  <div className="eyebrow mb-4 text-forest">The situation</div>
-                  <p className="max-w-prose text-[1.02rem] leading-[1.65] text-ink-soft">
+                {/* 01 THE PROBLEM */}
+                <div className="border-t border-hairline/70 pt-6">
+                  <div className="eyebrow mb-3 text-forest">01 · The Problem</div>
+                  <p className="max-w-prose text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-ink font-normal">
                     {study.situation}
                   </p>
                 </div>
 
+                {/* 02 WHY IT MATTERED */}
                 <div>
-                  <div className="eyebrow mb-4 text-forest">What I did</div>
-                  <p className="max-w-prose text-[1.02rem] leading-[1.65]">{study.what}</p>
+                  <div className="eyebrow mb-3 text-forest">02 · Why It Mattered</div>
+                  <p className="max-w-prose text-[0.98rem] leading-[1.65] text-ink-soft">
+                    {study.whyItMattered}
+                  </p>
                 </div>
 
+                {/* 03 MY ROLE */}
                 <div>
-                  <div className="eyebrow mb-5 text-forest">How I approached it</div>
+                  <div className="eyebrow mb-3 text-forest">03 · My Role</div>
+                  <p className="max-w-prose text-[0.98rem] leading-[1.65] text-ink-soft">
+                    {study.what}
+                  </p>
+                </div>
+
+                {/* 04 THE DECISION (Signature Component) */}
+                {study.decision && (
+                  <div>
+                    <div className="eyebrow mb-3 text-forest">04 · Key Product Decision</div>
+                    <DecisionCallout statement={study.decision.statement} why={study.decision.why} />
+                  </div>
+                )}
+
+                {/* 05 THE APPROACH */}
+                <div>
+                  <div className="eyebrow mb-5 text-forest">05 · The Approach</div>
                   <ol className="grid gap-0 border-t border-hairline">
                     {study.approach.map((a, i) => (
                       <li
                         key={a.step}
                         className="grid grid-cols-[2rem_minmax(0,1fr)] gap-4 border-b border-hairline py-4 md:grid-cols-[2rem_9rem_minmax(0,1fr)]"
                       >
-                        <span className="eyebrow tabular-nums">
+                        <span className="eyebrow tabular-nums text-forest">
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span className="text-[0.95rem] tracking-[-0.01em]">{a.step}</span>
+                        <span className="text-[0.95rem] font-medium tracking-[-0.01em]">{a.step}</span>
                         <span className="col-span-2 text-[0.92rem] leading-relaxed text-ink-soft md:col-span-1">
                           {a.body}
                         </span>
@@ -175,28 +221,78 @@ function CaseStudySheet({ id, onClose }: { id: string | null; onClose: () => voi
                   </ol>
                 </div>
 
+                {/* 06 THE TRADE-OFF */}
+                {study.tradeoff && (
+                  <div>
+                    <div className="eyebrow mb-3 text-forest flex items-center gap-2">
+                      <Scale className="h-3.5 w-3.5 text-forest" />
+                      <span>06 · The Trade-Off</span>
+                    </div>
+                    <div className="rounded-sm bg-paper-deep/40 p-5 border border-hairline/60 text-[0.95rem] leading-relaxed text-ink-soft">
+                      {study.tradeoff}
+                    </div>
+                  </div>
+                )}
+
+                {/* 07 OUTCOME (Evidence Metrics) */}
                 <div>
-                  <div className="eyebrow mb-5 text-forest">Outcome</div>
-                  <div className="flex flex-wrap gap-x-12 gap-y-6">
+                  <div className="eyebrow mb-4 text-forest">07 · Outcome & Evidence</div>
+                  <div className="grid grid-cols-2 gap-4">
                     {study.outcome.map((o) => (
-                      <div key={o.label}>
-                        <div className="display text-[clamp(1.6rem,4vw,2.6rem)] text-forest">
+                      <div key={o.label} className="rounded-sm bg-paper-deep/30 p-5 border border-hairline/60">
+                        <div className="display text-[clamp(1.8rem,4vw,2.8rem)] text-forest font-semibold">
                           {o.value}
                         </div>
-                        <div className="eyebrow mt-1">{o.label}</div>
+                        <div className="eyebrow mt-1 text-[0.75rem]">{o.label}</div>
                       </div>
                     ))}
                   </div>
                 </div>
 
+                {/* 08 WHAT I LEARNED */}
+                {study.lesson && (
+                  <div>
+                    <div className="eyebrow mb-3 text-forest flex items-center gap-2">
+                      <Lightbulb className="h-3.5 w-3.5 text-forest" />
+                      <span>08 · What I Learned</span>
+                    </div>
+                    <div className="rounded-sm bg-forest/[0.05] border border-forest/20 p-5 text-[0.95rem] font-medium leading-relaxed text-ink">
+                      "{study.lesson}"
+                    </div>
+                  </div>
+                )}
+
+                {/* Tools */}
                 <div>
-                  <div className="eyebrow mb-5">Tools</div>
+                  <div className="eyebrow mb-3">Capabilities & Toolkit</div>
                   <div className="flex flex-wrap gap-2">
                     {study.tools.map((t) => (
                       <ToolChip key={t} name={t} />
                     ))}
                   </div>
                 </div>
+
+                {/* NEXT PROJECT CONTINUITY */}
+                {nextStudy && (
+                  <div className="mt-6 border-t border-hairline pt-8">
+                    <div className="eyebrow mb-3 text-ink-faint">Next Case Study</div>
+                    <button
+                      type="button"
+                      onClick={() => onNavigate(study.nextId)}
+                      className="group flex w-full items-center justify-between rounded-sm border border-hairline/80 bg-paper-deep/20 p-6 text-left transition-colors hover:border-forest/50 hover:bg-paper-deep/50"
+                    >
+                      <div>
+                        <div className="text-xs uppercase font-mono text-forest mb-1">{nextStudy.context}</div>
+                        <div className="text-xl font-medium text-ink group-hover:text-forest transition-colors">
+                          {nextStudy.title}
+                        </div>
+                      </div>
+                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-paper border border-hairline text-forest transition-transform group-hover:translate-x-1">
+                        <ArrowRight className="h-4 w-4" />
+                      </span>
+                    </button>
+                  </div>
+                )}
               </motion.div>
             </div>
           </motion.section>

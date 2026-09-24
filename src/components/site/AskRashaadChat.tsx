@@ -1,65 +1,83 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { MessageSquare, X, Send, Sparkles, User, Bot, ArrowUpRight } from "lucide-react";
+import { MessageSquare, X, Send, Sparkles, User, Bot, ArrowUpRight, FolderKanban } from "lucide-react";
 
+import { useCaseStudy } from "./CaseStudy";
 import { CONTACT } from "@/lib/brand";
+
+type MessageLink = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  caseStudyId?: string;
+};
 
 type Message = {
   id: string;
   sender: "user" | "assistant";
   text: string;
-  links?: { label: string; href: string; external?: boolean }[];
+  links?: MessageLink[];
 };
 
 const SUGGESTIONS = [
-  "What kind of Product Manager is Rashaad?",
+  "What did Rashaad do at Harrods?",
+  "Tell me about his eCommerce experience",
+  "What are his AI metrics?",
   "Tell me about Magpie AI",
-  "What did he do at Harrods?",
-  "Tell me about NorthShore B2B",
-  "What are his enterprise AI metrics?",
-  "How can I get in touch?",
+  "How can I contact him?",
 ];
 
-function generateResponse(query: string): { text: string; links?: Message["links"] } {
+function generateResponse(query: string): { text: string; links?: MessageLink[] } {
   const q = query.toLowerCase();
-
-  if (q.includes("pm") || q.includes("product manager") || q.includes("kind of") || q.includes("background")) {
-    return {
-      text: "Rashaad is a Product Manager with strong AI depth and software engineering foundations. He bridges product strategy, user feedback, data analytics, and technical execution: having built AI platforms, commercial forecasting models, and B2B eCommerce systems.",
-      links: [{ label: "Download CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true }],
-    };
-  }
-
-  if (q.includes("magpie")) {
-    return {
-      text: "At Talk to Magpie AI (Sep 2026 -> Present), Rashaad works as Product Manager Associate. He conducts direct user research, analyzes conversation friction in AI roleplay & voice experiences, and turns customer feedback into product and roadmap decisions.",
-    };
-  }
 
   if (q.includes("harrods") || q.includes("239") || q.includes("13m")) {
     return {
       text: "At Harrods (London LAB), Rashaad narrowed a broad commercial challenge into an AI forecasting opportunity. He analyzed 13M+ transactions using K-Means clustering and category demand forecasting, delivering a £239M 2026 revenue view for executive leadership.",
+      links: [{ label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" }],
     };
   }
 
   if (q.includes("northshore") || q.includes("ecommerce") || q.includes("stripe") || q.includes("b2b")) {
     return {
       text: "For NorthShore Care Supply, Rashaad led the B2B eCommerce experience reengineering across product discovery, cart, checkout, and Stripe payment integration in direct collaboration with engineering teams.",
+      links: [{ label: "VIEW NORTHSHORE CASE STUDY", caseStudyId: "northshore" }],
     };
   }
 
-  if (q.includes("metric") || q.includes("impact") || q.includes("perficient") || q.includes("genai") || q.includes("10k")) {
+  if (q.includes("magpie")) {
     return {
-      text: "Rashaad's key verified production metrics include:\n• 13M+ Harrods transactions & £239M revenue view\n• 10K+ daily RAG queries at <2s latency & 99.9% uptime\n• 80%+ manual data entry cut (1,200+ hrs/mo saved for Aristocrat)\n• 120K+ sales records in XGBoost demand models\n• 90% accuracy across 10K+ scientific images.",
+      text: "At Talk to Magpie AI (Sep 2026 -> Present), Rashaad works as Product Manager Associate. He conducts direct user research, analyzes conversation friction in AI roleplay & voice experiences, and turns customer feedback into product and roadmap decisions.",
+      links: [{ label: "VIEW MAGPIE CASE STUDY", caseStudyId: "magpie" }],
+    };
+  }
+
+  if (q.includes("metric") || q.includes("impact") || q.includes("perficient") || q.includes("genai") || q.includes("10k") || q.includes("aristocrat")) {
+    return {
+      text: "Rashaad's verified production metrics include RAG pipelines serving 10K+ daily queries at <2s latency & 99.9% uptime, 80%+ manual data entry cut (1,200+ hrs/mo saved for Aristocrat), and 13M+ Harrods transactions (£239M revenue view).",
+      links: [
+        { label: "VIEW ENTERPRISE AI CASE STUDY", caseStudyId: "perficient" },
+        { label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" },
+      ],
+    };
+  }
+
+  if (q.includes("pm") || q.includes("product manager") || q.includes("kind of") || q.includes("background")) {
+    return {
+      text: "Rashaad is a Product Manager with strong AI depth and software engineering foundations. He bridges product strategy, user feedback, data analytics, and technical execution: having built AI platforms, commercial forecasting models, and B2B eCommerce systems.",
+      links: [
+        { label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
+        { label: "VIEW MAGPIE CASE STUDY", caseStudyId: "magpie" },
+      ],
     };
   }
 
   if (q.includes("contact") || q.includes("email") || q.includes("hire") || q.includes("reach") || q.includes("linkedin")) {
     return {
-      text: "You can reach out to Rashaad directly via email or LinkedIn. He is actively open to Product Manager, AI Product, and Product Strategy roles in London & Remote.",
+      text: "You can reach Rashaad by email or LinkedIn. He is actively open to Product Manager, AI Product, and Product Strategy roles in London & Remote.",
       links: [
-        { label: "Email Rashaad", href: `mailto:${CONTACT.email}` },
-        { label: "LinkedIn Profile", href: CONTACT.linkedin, external: true },
+        { label: "EMAIL", href: `mailto:${CONTACT.email}` },
+        { label: "LINKEDIN", href: CONTACT.linkedin, external: true },
+        { label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
       ],
     };
   }
@@ -67,26 +85,33 @@ function generateResponse(query: string): { text: string; links?: Message["links
   if (q.includes("education") || q.includes("lbs") || q.includes("degree")) {
     return {
       text: "Rashaad holds a Master's in Analytics and Management from London Business School (2025 – 2026) and a B.Tech in Computer Science & Engineering from VIT University (2019 – 2023).",
+      links: [{ label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true }],
     };
   }
 
   return {
-    text: "Rashaad Syed is an AI Product Manager based in London. He has worked across AI roleplay products at Magpie AI, revenue forecasting at Harrods (£239M revenue view across 13M+ transactions), enterprise GenAI systems at Perficient (10K+ daily queries), and B2B eCommerce at NorthShore Care Supply.",
+    text: "Rashaad Syed is an AI Product Manager based in London. He works across AI roleplay products at Magpie AI, revenue forecasting at Harrods (£239M revenue view), enterprise GenAI systems at Perficient (10K+ daily queries), and B2B eCommerce at NorthShore Care Supply.",
     links: [
-      { label: "Download CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
-      { label: "Email Rashaad", href: `mailto:${CONTACT.email}` },
+      { label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" },
+      { label: "VIEW NORTHSHORE CASE STUDY", caseStudyId: "northshore" },
+      { label: "DOWNLOAD CV", href: "/cv/Rashaad-Syed-CV.pdf", external: true },
     ],
   };
 }
 
 export function AskRashaadChat() {
+  const { open: openCaseStudy } = useCaseStudy();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "init",
       sender: "assistant",
-      text: "Hi! I'm Rashaad's AI Assistant. Ask me anything about his product experience, AI projects, metrics, or background.",
+      text: "Hi! I'm Rashaad's AI Assistant. Ask me anything about his product decision-making, AI projects, metrics, or background.",
+      links: [
+        { label: "VIEW HARRODS CASE STUDY", caseStudyId: "harrods" },
+        { label: "VIEW NORTHSHORE CASE STUDY", caseStudyId: "northshore" },
+      ],
     },
   ]);
 
@@ -117,6 +142,13 @@ export function AskRashaadChat() {
     }, 350);
   };
 
+  const handleLinkClick = (l: MessageLink) => {
+    if (l.caseStudyId) {
+      setOpen(false);
+      openCaseStudy(l.caseStudyId);
+    }
+  };
+
   return (
     <>
       {/* Floating Toggle Button */}
@@ -143,7 +175,7 @@ export function AskRashaadChat() {
             exit={{ opacity: 0, y: 24, scale: 0.95 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
             data-lenis-prevent="true"
-            className="fixed bottom-22 right-4 z-50 flex h-[30rem] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-md border border-hairline bg-paper shadow-2xl md:right-6"
+            className="fixed bottom-22 right-4 z-50 flex h-[31rem] w-[calc(100vw-2rem)] max-w-sm flex-col overflow-hidden rounded-md border border-hairline bg-paper shadow-2xl md:right-6"
           >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-hairline bg-paper-deep/40 px-4 py-3">
@@ -153,7 +185,7 @@ export function AskRashaadChat() {
                 </span>
                 <div>
                   <h4 className="text-xs font-semibold tracking-wide text-ink">Ask Rashaad AI</h4>
-                  <p className="text-[0.68rem] text-ink-faint">Factual insights on experience & metrics</p>
+                  <p className="text-[0.68rem] text-ink-faint">Navigation & factual insights</p>
                 </div>
               </div>
               <button
@@ -184,7 +216,7 @@ export function AskRashaadChat() {
                     {m.sender === "user" ? <User className="h-3 w-3" /> : <Bot className="h-3 w-3" />}
                   </span>
                   <div
-                    className={`rounded-lg px-3.5 py-2.5 max-w-[84%] leading-relaxed ${
+                    className={`rounded-lg px-3.5 py-2.5 max-w-[86%] leading-relaxed ${
                       m.sender === "user"
                         ? "bg-ink text-paper"
                         : "bg-paper-deep/50 border border-hairline text-ink-soft"
@@ -193,19 +225,31 @@ export function AskRashaadChat() {
                     <p className="whitespace-pre-line">{m.text}</p>
 
                     {m.links && (
-                      <div className="mt-2.5 flex flex-wrap gap-2 pt-1 border-t border-hairline/60">
-                        {m.links.map((l) => (
-                          <a
-                            key={l.label}
-                            href={l.href}
-                            target={l.external ? "_blank" : undefined}
-                            rel={l.external ? "noopener noreferrer" : undefined}
-                            className="inline-flex items-center gap-1 rounded bg-forest/10 px-2.5 py-1 text-[0.72rem] font-medium text-forest hover:bg-forest hover:text-paper transition-colors"
-                          >
-                            {l.label}
-                            {l.external && <ArrowUpRight className="h-3 w-3" />}
-                          </a>
-                        ))}
+                      <div className="mt-2.5 flex flex-wrap gap-1.5 pt-2 border-t border-hairline/60">
+                        {m.links.map((l) =>
+                          l.caseStudyId ? (
+                            <button
+                              key={l.label}
+                              type="button"
+                              onClick={() => handleLinkClick(l)}
+                              className="inline-flex items-center gap-1.5 rounded bg-forest/10 px-2.5 py-1 text-[0.7rem] font-semibold text-forest hover:bg-forest hover:text-paper transition-colors"
+                            >
+                              <FolderKanban className="h-3 w-3" />
+                              {l.label}
+                            </button>
+                          ) : (
+                            <a
+                              key={l.label}
+                              href={l.href}
+                              target={l.external ? "_blank" : undefined}
+                              rel={l.external ? "noopener noreferrer" : undefined}
+                              className="inline-flex items-center gap-1 rounded bg-forest/10 px-2.5 py-1 text-[0.7rem] font-semibold text-forest hover:bg-forest hover:text-paper transition-colors"
+                            >
+                              {l.label}
+                              {l.external && <ArrowUpRight className="h-3 w-3" />}
+                            </a>
+                          ),
+                        )}
                       </div>
                     )}
                   </div>
